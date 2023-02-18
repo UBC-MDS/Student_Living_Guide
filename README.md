@@ -2,7 +2,7 @@
 
 # Sketch
 
-[sketch](img/sketch.png)
+![](img/sketch.png)
 
 # Usage
 
@@ -42,3 +42,7 @@ pycountry-convert==0.7.2    # for obtaining the Continent
 geopy==2.3.0                # for obtaining the latitude, longitude
 pandas>=1.3.*               # for dataframe reading & storing
 ```
+
+# Exploratory Data Analysis
+
+You can check our EDA notebook [here](EDA.ipynb)
