@@ -23,14 +23,12 @@ For our dashboard, we plan to visualize all five aforementioned indices by count
 
 ### Research Question
 
-To help the students in the shoes of our fictional character Quan,  
+Througn our application, students in the shoes of our fictional character Quan will be able to answer the following questions: 
 
-Quan will be able to answer the following application through our application: 
+- Which country has the highest cost of living? 
 
-Which country has the highest cost of living? 
+- Which country has the lowest cost of living? 
 
-Which country has the lowest cost of living? 
+- What is the correlation between different indexes? For example, what is the correlation between the Groceries Index and Restaurant Price Index? 
 
-What is the correlation between different indexes? For example, what is the correlation between the Groceries Index and Restaurant Price Index? 
-
-Which country has the closest living cost compared to New York? 
+- Which country has the closest living cost compared to New York?
