@@ -8,7 +8,7 @@ We plan on having four graphs that will summarize the entire dataset and help an
 
 The first graph is a bar chart on the top left corner (beside the filters) depicting the 10 with the highest and lowest Cost of Living index. The two charts - highest and lowest Cost of Living are placed one on top of the other. The second graph is a map that will be on the top right corner capturing the Cost of Living Index of each country on the world map. The magnitude of the value is shown by the size of the circle. The third graph comes directly below it and will tell us if there is a direct correlation between some of the features for eg. there seems to be a high dependence of restaurant index with the cost of living index. The fourth graph is a probability distribution plot of the cost of living index of all the countries.
 
-[sketch](img/sketch.png)
+![](img/sketch.png)
 
 # Usage
 
@@ -48,6 +48,11 @@ pycountry-convert==0.7.2    # for obtaining the Continent
 geopy==2.3.0                # for obtaining the latitude, longitude
 pandas>=1.3.*               # for dataframe reading & storing
 ```
+
+
+# Exploratory Data Analysis
+
+You can check our EDA notebook [here](EDA.ipynb)
 
 # License
 Licensed under the terms of the MIT license.
