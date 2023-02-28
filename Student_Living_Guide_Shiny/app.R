@@ -3,9 +3,10 @@ library(shinyjs)        # improve user experience with JavaScript
 library(shinydashboard) # dashboard layout for shiny
 library(shinythemes)    # themes for shiny
 library(shinycssloaders)
-
+library(shinyWidgets)
+library(leaflet)
 library(plotly)
-
+library(circlize)
 # ====================================
 # ===       Global Variables       ===
 # ====================================
@@ -19,20 +20,35 @@ ui <- dashboardPage(
     title = "Student Living Guide"
   ),
 
-  dashboardSidebar(collapsed = FALSE,
-                   sidebarMenu(id="sidebar001",
-                               menuItem("Tab1", tabName = "tab1", icon = icon("table-columns"))
-                   )
-                   ,
-                   fluidPage(
-                     fluidRow(
-                       checkboxGroupInput("continent_checkbox", label = "Select continents",
-                                          choices = unique(df$Continent)),
-                       selectizeInput("country_select", label = "Select countries", choices = unique(df$Country), multiple = TRUE)
-                     )
-                    )
-
-
+  dashboardSidebar(
+     collapsed = FALSE,
+     sidebarMenu(id="sidebar001",
+                 menuItem("Tab1", tabName = "tab1", icon = icon("table-columns"))
+     )
+     ,
+     fluidPage(
+       fluidRow(
+         checkboxGroupInput(
+           inputId = "all_cont_checkbox", label = "Select all continents",
+           choices = "All Continents", inline = TRUE,
+           selected = "All Continents"
+         ),
+         prettyCheckboxGroup(
+           inputId = "continent_select",
+           label = "Select the continent(s)",
+           choices = unique(df$Continent),
+           selected = unique(df$Continent),
+           outline = TRUE,
+           plain = TRUE,
+           icon = icon("map-pin")
+         ),
+         selectizeInput(
+           "country_select",
+           label = "Select countries",
+           choices = unique(df$Country)
+        )
+       )
+      )
   ),
 
   dashboardBody(
