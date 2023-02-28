@@ -10,9 +10,6 @@ fluidPage(
       status = "primary",
 
       # possible chart output
-      # ...
-
-
       fluidPage(
         fluidRow(
           withSpinner(plotlyOutput("barPlot1"), type=3, color.background = "white")
@@ -30,15 +27,19 @@ fluidPage(
       status = "success",
 
       # possible chart output
-      # ...
-      # fluidPage(
-      #   fluidRow(
-      #     withSpinner(plotlyOutput("barPlot1"), type=3, color.background = "white")
-      #   ),
-      #   fluidRow(
-      #     withSpinner(plotlyOutput("barPlot2"), type=3, color.background = "white")
-      #   )
-      # )
+      fluidPage(
+        fluidRow(
+          leafletOutput("map1", height = "650px")
+        ),
+        fluidRow(
+
+          plotlyOutput("distplot1")
+        ),
+        fluidRow(
+
+          tableOutput(outputId = "demo_table")
+        )
+      )
     )
 
   )
