@@ -9,16 +9,16 @@ fluidPage(
       title = "Highest & Lowest Living Cost",
       status = "primary",
 
-      # possible chart output
       fluidPage(
         fluidRow(
+          # bar plot 1
           withSpinner(plotlyOutput("barPlot1"), type=3, color.background = "white")
         ),
         fluidRow(
+          # bar plot 2
           withSpinner(plotlyOutput("barPlot2"), type=3, color.background = "white")
         )
       )
-
     )
     ,
     box(
@@ -26,21 +26,20 @@ fluidPage(
       title ="column2",
       status = "success",
 
-      # possible chart output
       fluidPage(
         fluidRow(
+          # map plot
           leafletOutput("map1", height = "650px")
         ),
         fluidRow(
-
+          # distribution plot
           plotlyOutput("distplot1")
         ),
         fluidRow(
-
-          tableOutput(outputId = "demo_table")
+          # scatter plot
+          tableOutput(outputId = "demo_table") # <- change it to scatter plot / plotly output
         )
       )
     )
-
   )
 )

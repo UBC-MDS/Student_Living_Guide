@@ -1,25 +1,25 @@
-
+# ============================================
 # read template data
-df <- read.csv('https://raw.githubusercontent.com/UBC-MDS/Student_Living_Guide/data_preprocessing/data/processed_data.csv', header=TRUE)
+df <- read.csv('https://raw.githubusercontent.com/UBC-MDS/Student_Living_Guide/main/data/processed_data.csv', header=TRUE)
 
-
-# reactive variables
+# reactive variables e.g. filtering df
 filtered_df <- reactive({
   # data filtering based on selected country & continent(s)
   return (df %>%
             filter(Country == input$country_select | Continent %in% input$continent_select) %>%
             rename(cost_living = `Cost.of.Living.Index`))
-
 })
+
 filtered_df_country <- reactive({
   # data filtering based on selected country & continent(s)
   return (df %>%
             filter(Country == input$country_select) %>%
             rename(cost_living = `Cost.of.Living.Index`)
   )
-
 })
 
+# end of data reading & filtering
+# ============================================
 
 
 # observe component
@@ -58,9 +58,7 @@ output$demo_table <- renderTable({
   filtered_df()
 })
 
-
-
-
+# leaflet map definition & rendering
 output$map1 <- renderLeaflet({
   filtered_df <- filtered_df()
   filtered_df_country <- filtered_df_country()
@@ -104,24 +102,33 @@ observeEvent(input$map1_marker_click, {
   updateSelectizeInput(session, "country_select", selected = input$map1_marker_click$id)
 })
 
-
-# define barPlot1
+# bar plot 1
 output$barPlot1 <- renderPlotly({
 
-  # [implemented in milestone 2]
-  # selected_countries <- input$country_select
-  # if (!is.null(selected_countries)) {
-  #   filtered_df <- df[df$Country %in% selected_countries,]
-  #   plot <- plot_ly(filtered_df, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
-  #     layout(title = "Living Cost Bar Plot", xaxis = list(title = "Living Cost"), yaxis = list(title = "Country"))
-  #   plot
-  # }
+  # ========================
+  # modify below for bar plot
+  # ========================
 
   plot_ly(df, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
     layout(title = "Living Cost Bar Plot", xaxis = list(title = "Living Cost"), yaxis = list(title = "Country"))
 
 })
 
+# bar plot 2
+output$barPlot2 <- renderPlotly({
+
+  # ========================
+  # modify below for bar plot
+  # ========================
+  plot_ly(df, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
+    layout(title = "Living Cost Bar Plot",
+           xaxis = list(title = "latitude"), yaxis = list(title = "Country"))
+
+})
+
+# ========================
+# modify below for distribution plot
+# ========================
 output$distplot1 <- renderPlotly({
   filtered_df <- filtered_df()
   filtered_df_country <- filtered_df_country()
@@ -151,8 +158,6 @@ output$distplot1 <- renderPlotly({
     )
   }
 
-
-
   plot_ly(filtered_df, x = ~cost_living, type = "histogram") %>%
     layout(title = "Cost of Living Index",
            xaxis = list(title = "Cost of Living Index"),
@@ -170,28 +175,9 @@ output$distplot1 <- renderPlotly({
 
 })
 
-
-output$barPlot2 <- renderPlotly({
-
-  plot_ly(df, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
-    layout(title = "Living Cost Bar Plot",
-           xaxis = list(title = "latitude"), yaxis = list(title = "Country"))
+# ========================
+# modify below for scatter plot
+# ========================
+# output$scatterplot <- renderPlotly{}
 
 
-
-})
-
-
-# Layout ========================================================
-# (adding every plot together)
-# Bar Plot Layout
-# output$barPlotSection <- renderUI({
-#   fluidPage(
-#     fluidRow(
-#       plotlyOutput("barPlot1")
-#     ),
-#     fluidRow(
-#       plotlyOutput("barPlot1")
-#     )
-#   )
-# })

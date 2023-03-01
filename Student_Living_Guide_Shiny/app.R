@@ -10,7 +10,7 @@ library(circlize)
 # ====================================
 # ===       Global Variables       ===
 # ====================================
-df <- read.csv('https://raw.githubusercontent.com/UBC-MDS/Student_Living_Guide/data_preprocessing/data/processed_data.csv', header=TRUE)
+df <- read.csv('https://raw.githubusercontent.com/UBC-MDS/Student_Living_Guide/main/data/processed_data.csv', header=TRUE)
 
 # ====================================
 # ===              UI              ===
@@ -47,6 +47,9 @@ ui <- dashboardPage(
            label = "Select countries",
            choices = unique(df$Country)
         )
+        # ==========================
+        # add a new reactive element
+        # ==========================
        )
       )
   ),
@@ -56,7 +59,6 @@ ui <- dashboardPage(
     tabItems(
       tabItem(tabName = "tab1", source(file.path("ui", "tab1.R"),  local = TRUE)$value)
     ),
-
     # enable shinyjs
     shinyjs::useShinyjs(),
     # tag header, script, css, etc.
@@ -67,9 +69,7 @@ ui <- dashboardPage(
                   color: red;
                 }
               "))
-
     )
-
   )
 )
 
@@ -77,7 +77,6 @@ ui <- dashboardPage(
 # ===            Server            ===
 # ====================================
 server <- function(input, output, session) {
-
   # loading server function for each tab item
   source(file.path("server", "tab1.R"),  local = TRUE)$value
 }
