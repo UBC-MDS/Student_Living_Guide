@@ -7,6 +7,7 @@ library(shinyWidgets)
 library(leaflet)
 library(plotly)
 library(circlize)
+library(ggplot2)
 library(dplyr)
 
 # ====================================

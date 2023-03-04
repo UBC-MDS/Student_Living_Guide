@@ -4,7 +4,11 @@
 
 1. Map plot with every single data point representing a country. The point color is adjusted by the continent and country filters.
 
-2. Two bar plots: One showing the 10 most expensive countries and the other one showing the 10 less expensive countries in our dataset based on the cost of living index.
+
+2. We added a distribution plot visualizing the distribution of the cost of living index of the selected continent or continents. In addition, we also added lines for: first, the cost of living of the selected country; second, the mean cost of living of the selected continent(s).
+
+3. Two bar plots: One showing the 10 most expensive countries and the other one showing the 10 less expensive countries in our dataset based on the cost of living index.
+
 
 ## Things that are not implemented yet in our dashboard
 
@@ -24,4 +28,9 @@ There are several limitations we can work on and further improve our dashboard i
 1. Currently our map plot only provides visualization on a single index, we can further add other types
 of the index and provide more flexibility to the customer.
 
-2. Currently our bar plots showing the 10 most and least expensive countries are static and we could add reactivity  to it. For example when the user points at a country's bar plot, it can show the difference index value with New York City.
+2. Similarly, the distribution plot only draws the distribution of the cost of living index. Considering our target audience, they might also interest in comparing other indices like rent with respect to NYC.
+
+3. For the distribution plot, we added vertical lines for the mean and the selected country's cost of living. However, we found it hard to dynamically adjust the position of the annotated texts using `ggplot`. 
+
+4. Currently our bar plots showing the 10 most and least expensive countries are static and we could add reactivity  to it. For example when the user points at a country's bar plot, it can show the difference index value with New York City.
+

@@ -1,6 +1,6 @@
 # ============================================
 # read template data
-df <- read.csv('https://raw.githubusercontent.com/UBC-MDS/Student_Living_Guide/main/data/processed_data.csv', header=TRUE)
+df <- read.csv("https://raw.githubusercontent.com/UBC-MDS/Student_Living_Guide/main/data/processed_data.csv", header = TRUE)
 
 data_arranged <- df|>
   arrange(desc(`Cost.of.Living.Index`))
@@ -32,6 +32,7 @@ filtered_df <- reactive({
                    groceries_index = `Groceries.Index`,
                    rest_price_index = `Restaurant.Price.Index`,
                    purchasing_power_index = `Local.Purchasing.Power.Index`))
+
 })
 
 filtered_df_country <- reactive({
@@ -47,13 +48,18 @@ filtered_df_country <- reactive({
   )
 })
 
+mean_col_continent <- reactive({
+  # calculate mean cost of living index based for the selected continent(s)
+  return(round(mean(filtered_df()$cost_living), 2))
+})
+
 # end of data reading & filtering
 # ============================================
 
 
 # observe component
 observe({
-
+  
   # reactive element 1: select all continent if "select all" checked
   observeEvent(input$all_cont_checkbox, {
     if (is.null(input$all_cont_checkbox)) {
@@ -67,7 +73,7 @@ observe({
       selected = selected_
     )
   }, ignoreNULL = FALSE)
-
+  
   # reactive element 2: un-select "select_all" if no continent selected
   observeEvent(input$continent_select, {
     if (is.null(input$continent_select)) {
@@ -79,7 +85,7 @@ observe({
       )
     }
   }, ignoreNULL = FALSE)
-
+  
 })
 
 # Render the table output
@@ -97,15 +103,15 @@ output$map1 <- renderLeaflet({
               length.out = 11)
   colors_0_100 <- colorRampPalette(c("blue", "purple"))(99)
   colors_0_100_200 <- c(colors_0_100, "black", rev(colorRampPalette(c("red", "yellow"))(99)))
-
+  
   pal <- colorBin(colors_0_100_200, domain = filtered_df$cost_living, bins = bins)
-
+  
   # define data point label
   labels <- paste("<p><b> Continent </b>: ", filtered_df$Continent, "</p>",
                   "<p><b> Country </b>: ", filtered_df$Country, "</p>",
                   "<p><b> Cost of Living Index </b>: ", filtered_df$cost_living, "</p>",
                   sep="")
-
+  
   leaflet() %>%
     addTiles(urlTemplate="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")%>%
     addRectangles(lng1 = filtered_df_country$longitude - 3, lat1 = filtered_df_country$latitude - 2,
@@ -133,45 +139,43 @@ observeEvent(input$map1_marker_click, {
 
 # bar plot 1
 output$barPlot1 <- renderPlotly({
-
+  
   # ========================
-  # modify below for bar plot
+  # code below for bar plot
   # ========================
-
   plot_ly(up_data, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
     layout(title = "The 10 most expensive countries", xaxis = list(title = "Cost index"), yaxis = list(title = "Country"))
-
 })
 br()
 # bar plot 2
 output$barPlot2 <- renderPlotly({
-
+  
   # ========================
-  # modify below for bar plot
+  # code below for bar plot
   # ========================
   plot_ly(lower_data, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
     layout(title = "The 10 least expensive countries",
            xaxis = list(title = "Cost index"),  yaxis = list(title = "Country"))
-
 })
 
 # ========================
-# modify below for distribution plot
+# code below for distribution plot
 # ========================
 output$distplot1 <- renderPlotly({
   filtered_df <- filtered_df()
   filtered_df_country <- filtered_df_country()
+  mean_col_continent <- mean_col_continent()
 
-  # base line for NY
+  # continent cost of living mean value
   vline <- function(x = 0, color = "green") {
     list(
       type = "line",
       y0 = 0,
-      y1 = 100,
+      y1 = 0,
       yref = "paper",
       x0 = x,
       x1 = x,
-      line = list(color = color, dash="dot")
+      line = list(color = color, dash = "solid")
     )
   }
   # vline for selected country
@@ -183,29 +187,47 @@ output$distplot1 <- renderPlotly({
       yref = "paper",
       x0 = x,
       x1 = x,
-      line = list(color = color, dash="dot")
+      line = list(color = color, dash = "dot")
     )
   }
+  
+  gg <- ggplot(filtered_df, aes(x = cost_living)) +
+    geom_histogram(aes(y = after_stat(density)), color = "white", fill = "#1F77B4", binwidth = 3) +
+    geom_density(outline.type = "upper", adjust = 1.75, linewidth = 0.4) +
+    geom_vline(aes(xintercept = mean_col_continent),
+       color = "black", linetype = "solid", linewidth = 0.4) +
+    # annotate("text", x = mean_col_continent + 12, y = 0.03, label = paste("Mean:", mean_col_continent)) +
+    # annotate("text", x = filtered_df_country$cost_living + 12, y = 0.03, label = filtered_df_country$Country) +
+    geom_vline(aes(xintercept=filtered_df_country$cost_living),
+                color="red", linetype="dash", linewidth = 0.4) +
+    scale_x_continuous(limits = c(min(filtered_df$cost_living),max(filtered_df$cost_living)), expand = c(0, 0)) +
+    scale_y_continuous(expand = c(0, 0)) +
+    theme_bw() 
 
-  plot_ly(filtered_df, x = ~cost_living, type = "histogram") %>%
-    layout(title = "Cost of Living Index",
-           xaxis = list(title = "Cost of Living Index"),
-           yaxis = list(title = "Frequency"),
-           shapes = list(vline(x = 100, color = "blue"),
-                         vline2(x=filtered_df_country$cost_living, color="red"))) %>%
-  add_annotations(x = 100, y = 30,
-                 text = "NY base level",
+  ggplotly(gg) %>%
+    layout(
+      title = "",
+      xaxis = list(title = "Cost of Living Index"),
+      yaxis = list(title = "Density"),
+      shapes = list(
+        vline(x = mean_col_continent, color = "black"),
+        vline2(x = filtered_df_country$cost_living, color = "red")
+      )
+    ) %>%
+    add_annotations(x = mean_col_continent, y = 0.038,
+                 text = paste("Mean:", mean_col_continent),
                  showarrow = FALSE,
-                 xshift = -45, yshift = 10) %>%
-    add_annotations(x = filtered_df_country$cost_living, y = 35,
-                    text = filtered_df_country$Country,
-                    showarrow = FALSE,
-                    xshift = 40, yshift = 10)
-
+                 xshift = 45, yshift = 10, font = list(size = 12)) %>%
+    add_annotations(
+      x = filtered_df_country$cost_living, y = 0.03,
+      text = filtered_df_country$Country,
+      showarrow = FALSE,
+      xshift = 40, yshift = 10, font = list(size = 12)
+   )
 })
 
 # ========================
-# modify below for scatter plot
+# code below for scatter plot
 # ========================
 #Index hashmap
 index_hash <- data.frame(
@@ -249,5 +271,3 @@ output$scatterplot <- renderPlotly({
            yaxis = list(title = y_axis_select))
   
 })
-
-
