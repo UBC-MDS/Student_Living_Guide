@@ -69,26 +69,26 @@ pandas>=1.3.*               # for dataframe reading & storing
 
 # Developing the app locally
 
-Interested in contributing to the project? This section provides instructions on how to install and configure the necessary tools and dependencies to get started. 
+If you are interested in running or developing the app locally, this section provides instructions on how to install and configure the necessary tools and dependencies to get started. 
 
 To develop `Student_Living_Guide` locally:
 1. Clone this repository 
 ```   
 git clone https://github.com/UBC-MDS/Student_Living_Guide.git
 ```
-1. Install R and RStudio on your local machine.
-2. Open RStudio and set the current working directory to where you clone the repo.
-3. Install all the dependencies by running the following code in the R console: 
+2. Install R and RStudio on your local machine.
+3. Open RStudio and set the current working directory to where you clone the repo.
+4. Install all the dependencies by running the following code in the R console: 
 ```
 install.packages(c("shiny", "shinyjs", "shinydashboard", "shinythemes", "shinycssloaders", "shinyWidgets", "leaflet", "plotly", "circlize", "ggplot2"))
 ```
-4. To run the app locally, run the following command in the R console:
+5. To run the app locally, run the following command in the R console:
 ```
 runApp("Student_Living_Guide_Shiny")
 ```
-5. Alternatively, you can navigate into the folder `Student_Living_Guide_Shiny` and open the `app.R` script. Then, click on the Run App button at the top of the editor.
+6. Alternatively, you can navigate into the folder `Student_Living_Guide_Shiny` and open the `app.R` script. Then, click on the Run App button at the top of the editor.
    
-6. The script for the `ui` objects is located in `Student_Living_Guide_Shiny\ui\tab1.R` while the script for the `server` function is located in `Student_Living_Guide_Shiny\ui\tab1.R`.
+7. The script for the `ui` objects is located in `Student_Living_Guide_Shiny\ui\tab1.R` while the script for the `server` function is located in `Student_Living_Guide_Shiny\ui\tab1.R`.
 
 # Contributions
 Interested in contributing? Please check out our [contributors' guidelines](CONTRIBUTING.md). 
