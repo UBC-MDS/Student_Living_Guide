@@ -7,6 +7,8 @@ library(shinyWidgets)
 library(leaflet)
 library(plotly)
 library(circlize)
+library(dplyr)
+
 # ====================================
 # ===       Global Variables       ===
 # ====================================
