@@ -8,6 +8,8 @@ library(leaflet)
 library(plotly)
 library(circlize)
 library(ggplot2)
+library(dplyr)
+
 # ====================================
 # ===       Global Variables       ===
 # ====================================
@@ -47,10 +49,17 @@ ui <- dashboardPage(
            "country_select",
            label = "Select countries",
            choices = unique(df$Country)
+        ),
+        selectizeInput(
+          "x_axis_select",
+          label = "Select x_axis for correlation between indixes",
+          choices = c("Cost of Living Index", "Rent Index", "Cost of Living Plus Rent Index", "Groceries Index", "Restaurant Price Index", "Local Purchasing Power Index")
+        ),
+        selectizeInput(
+          "y_axis_select",
+          label = "Select y_axis for correlation between indixes",
+          choices = c("Cost of Living Index", "Rent Index", "Cost of Living Plus Rent Index", "Groceries Index", "Restaurant Price Index", "Local Purchasing Power Index")
         )
-        # ==========================
-        # add a new reactive element
-        # ==========================
        )
       )
   ),

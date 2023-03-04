@@ -2,19 +2,50 @@
 # read template data
 df <- read.csv("https://raw.githubusercontent.com/UBC-MDS/Student_Living_Guide/main/data/processed_data.csv", header = TRUE)
 
+data_arranged <- df|>
+  arrange(desc(`Cost.of.Living.Index`))
+
+lower_data =  tail(data_arranged , n = 10)
+up_data = head(data_arranged , n = 10)
+
+up_data$Country <- factor(up_data$Country, levels = unique(up_data$Country)[order(up_data$Cost.of.Living.Index, decreasing = FALSE)])
+lower_data$Country <-factor(lower_data$Country, levels = unique(lower_data$Country)[order(lower_data$Cost.of.Living.Index, decreasing = FALSE)])
+
+
+
 # reactive variables e.g. filtering df
+index_hash <- c(
+  "Cost of Living Index" = "cost_living", 
+  "Rent Index" = "rent_index", 
+  "Cost of Living Plus Rent Index" = "cost_living_rent_index", 
+  "Groceries Index" = "groceries_index", 
+  "Restaurant Price Index" = "rest_price_index", 
+  "Local Purchasing Power Index" = "purchasing_power_index"
+)
 filtered_df <- reactive({
   # data filtering based on selected country & continent(s)
-  return(df %>%
-    filter(Country == input$country_select | Continent %in% input$continent_select) %>%
-    rename(cost_living = `Cost.of.Living.Index`))
+  return (df %>%
+            filter(Country == input$country_select | Continent %in% input$continent_select) %>%
+            rename(cost_living = `Cost.of.Living.Index`, 
+                   rent_index = `Rent.Index`,
+                   cost_living_rent_index = `Cost.of.Living.Plus.Rent.Index`,
+                   groceries_index = `Groceries.Index`,
+                   rest_price_index = `Restaurant.Price.Index`,
+                   purchasing_power_index = `Local.Purchasing.Power.Index`))
+
 })
 
 filtered_df_country <- reactive({
   # data filtering based on selected country & continent(s)
-  return(df %>%
-    filter(Country == input$country_select) %>%
-    rename(cost_living = `Cost.of.Living.Index`))
+  return (df %>%
+            filter(Country == input$country_select) %>%
+            rename(cost_living = `Cost.of.Living.Index`, 
+                   rent_index = `Rent.Index`,
+                   cost_living_rent_index = `Cost.of.Living.Plus.Rent.Index`,
+                   groceries_index = `Groceries.Index`,
+                   rest_price_index = `Restaurant.Price.Index`,
+                   purchasing_power_index = `Local.Purchasing.Power.Index`)
+  )
 })
 
 mean_col_continent <- reactive({
@@ -110,28 +141,25 @@ observeEvent(input$map1_marker_click, {
 output$barPlot1 <- renderPlotly({
   
   # ========================
-  # modify below for bar plot
+  # code below for bar plot
   # ========================
-  
-  plot_ly(df, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
-    layout(title = "Living Cost Bar Plot", xaxis = list(title = "Living Cost"), yaxis = list(title = "Country"))
-  
+  plot_ly(up_data, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
+    layout(title = "The 10 most expensive countries", xaxis = list(title = "Cost index"), yaxis = list(title = "Country"))
 })
-
+br()
 # bar plot 2
 output$barPlot2 <- renderPlotly({
   
   # ========================
-  # modify below for bar plot
+  # code below for bar plot
   # ========================
-  plot_ly(df, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
-    layout(title = "Living Cost Bar Plot",
-           xaxis = list(title = "latitude"), yaxis = list(title = "Country"))
-  
+  plot_ly(lower_data, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
+    layout(title = "The 10 least expensive countries",
+           xaxis = list(title = "Cost index"),  yaxis = list(title = "Country"))
 })
 
 # ========================
-# modify below for distribution plot
+# code below for distribution plot
 # ========================
 output$distplot1 <- renderPlotly({
   filtered_df <- filtered_df()
@@ -199,6 +227,47 @@ output$distplot1 <- renderPlotly({
 })
 
 # ========================
-# modify below for scatter plot
+# code below for scatter plot
 # ========================
-# output$scatterplot <- renderPlotly{}
+#Index hashmap
+index_hash <- data.frame(
+  row.names=c(
+    "Cost of Living Index", 
+    "Rent Index", 
+    "Cost of Living Plus Rent Index", 
+    "Groceries Index", 
+    "Restaurant Price Index", 
+    "Local Purchasing Power Index"
+  ) , 
+  val=c(
+    "cost_living", 
+    "rent_index", 
+    "cost_living_rent_index", 
+    "groceries_index", 
+    "rest_price_index", 
+    "purchasing_power_index"
+  ))
+  
+
+output$scatterplot <- renderPlotly({
+  filtered_df <- filtered_df()
+  x_axis_select <- reactive({
+    # get selected indexes for x axis
+    return (input$x_axis_select)
+  })
+  y_axis_select <- reactive({
+    # get selected indexes for y axis
+    return (input$y_axis_select)
+  })
+  x_axis_select <- toString(x_axis_select())
+  y_axis_select <- toString(y_axis_select())
+  print(index_hash[x_axis_select, ])
+  plot_ly(filtered_df, 
+          x = as.formula(paste0('~', index_hash[x_axis_select, ])), 
+          y = as.formula(paste0('~', index_hash[y_axis_select, ])), 
+          type = "scatter") |>
+    layout(title = "Correlation Plot between Indices", 
+           xaxis = list(title = x_axis_select), 
+           yaxis = list(title = y_axis_select))
+  
+})

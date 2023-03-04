@@ -6,14 +6,15 @@ fluidPage(
   fluidRow(
     box(
       width = 4,
-      title = "Highest & Lowest Living Cost",
+      title = "Least & Most Expensive Countries",
       status = "primary",
 
       fluidPage(
         fluidRow(
           # bar plot 1
-          withSpinner(plotlyOutput("barPlot1"), type=3, color.background = "white")
-        ),
+          withSpinner(plotlyOutput("barPlot1"), type=3, color.background = "white"),fluidRow()
+        ), 
+        
         fluidRow(
           # bar plot 2
           withSpinner(plotlyOutput("barPlot2"), type=3, color.background = "white")
@@ -37,7 +38,7 @@ fluidPage(
         ),
         fluidRow(
           # scatter plot
-          tableOutput(outputId = "demo_table") # <- change it to scatter plot / plotly output
+          plotlyOutput("scatterplot") 
         )
       )
     )

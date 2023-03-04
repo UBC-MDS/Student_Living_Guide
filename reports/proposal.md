@@ -1,6 +1,13 @@
-# Proposal
+# Proposal Student Living Guide
 
 ## Section 1: Motivation and Purpose
+
+|                    |                                                                       |
+|--------------------|-----------------------------------------------------------------------|
+| Who We are         | International Data Scientists Group                                   |
+| Our goal           | To help NY students in finding host countries matching their budget.  |
+| Target Audience    | International students                                                |
+| Secondary Audience | Anybody travelling from New York to any other part of the world       |
 
 As international students, the main question that we all asked ourselves before moving to Vancouver was: How affordable is Vancouver city? How affordable a country or a city is, is indeed the biggest factor when it comes to choosing the country or city where one wants to pursue their studies. Many students, therefore, browse hundreds of websites to find indicators of the cost of living in the country or the city they plan to go to. However, this process can be exhaustive because the information about the cost of living is spread across different websites and the search results often contradict. How can we be sure that this process of comparing cities/countries based on the cost of living is less exhaustive for students and potentially yields reliable results? This is the question that our application `Student_Living_Guide` aims to address.
 
@@ -30,7 +37,7 @@ The EDA notebook can be found [here](../EDA.ipynb).
 
 ## Section 3: Research questions and usage scenarios
 
-Througn our application, students in the shoes of our fictional character Quan will be able to answer the following questions:
+Through our application, students in the shoes of our fictional character Quan will be able to answer the following questions:
 
 - Which country has the highest cost of living?
 
