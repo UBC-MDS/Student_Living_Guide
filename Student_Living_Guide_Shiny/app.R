@@ -26,7 +26,7 @@ ui <- dashboardPage(
   dashboardSidebar(
      collapsed = FALSE,
      sidebarMenu(id="sidebar001",
-                 menuItem("Tab1", tabName = "tab1", icon = icon("table-columns"))
+                 menuItem("Overview", tabName = "tab1", icon = icon("table-columns"))
      )
      ,
      fluidPage(

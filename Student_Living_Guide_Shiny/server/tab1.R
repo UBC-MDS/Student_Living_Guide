@@ -15,18 +15,18 @@ lower_data$Country <-factor(lower_data$Country, levels = unique(lower_data$Count
 
 # reactive variables e.g. filtering df
 index_hash <- c(
-  "Cost of Living Index" = "cost_living", 
-  "Rent Index" = "rent_index", 
-  "Cost of Living Plus Rent Index" = "cost_living_rent_index", 
-  "Groceries Index" = "groceries_index", 
-  "Restaurant Price Index" = "rest_price_index", 
+  "Cost of Living Index" = "cost_living",
+  "Rent Index" = "rent_index",
+  "Cost of Living Plus Rent Index" = "cost_living_rent_index",
+  "Groceries Index" = "groceries_index",
+  "Restaurant Price Index" = "rest_price_index",
   "Local Purchasing Power Index" = "purchasing_power_index"
 )
 filtered_df <- reactive({
   # data filtering based on selected country & continent(s)
   return (df %>%
             filter(Country == input$country_select | Continent %in% input$continent_select) %>%
-            rename(cost_living = `Cost.of.Living.Index`, 
+            rename(cost_living = `Cost.of.Living.Index`,
                    rent_index = `Rent.Index`,
                    cost_living_rent_index = `Cost.of.Living.Plus.Rent.Index`,
                    groceries_index = `Groceries.Index`,
@@ -39,7 +39,7 @@ filtered_df_country <- reactive({
   # data filtering based on selected country & continent(s)
   return (df %>%
             filter(Country == input$country_select) %>%
-            rename(cost_living = `Cost.of.Living.Index`, 
+            rename(cost_living = `Cost.of.Living.Index`,
                    rent_index = `Rent.Index`,
                    cost_living_rent_index = `Cost.of.Living.Plus.Rent.Index`,
                    groceries_index = `Groceries.Index`,
@@ -59,7 +59,7 @@ mean_col_continent <- reactive({
 
 # observe component
 observe({
-  
+
   # reactive element 1: select all continent if "select all" checked
   observeEvent(input$all_cont_checkbox, {
     if (is.null(input$all_cont_checkbox)) {
@@ -73,7 +73,7 @@ observe({
       selected = selected_
     )
   }, ignoreNULL = FALSE)
-  
+
   # reactive element 2: un-select "select_all" if no continent selected
   observeEvent(input$continent_select, {
     if (is.null(input$continent_select)) {
@@ -85,7 +85,7 @@ observe({
       )
     }
   }, ignoreNULL = FALSE)
-  
+
 })
 
 # Render the table output
@@ -103,19 +103,19 @@ output$map1 <- renderLeaflet({
               length.out = 11)
   colors_0_100 <- colorRampPalette(c("blue", "purple"))(99)
   colors_0_100_200 <- c(colors_0_100, "black", rev(colorRampPalette(c("red", "yellow"))(99)))
-  
+
   pal <- colorBin(colors_0_100_200, domain = filtered_df$cost_living, bins = bins)
-  
+
   # define data point label
   labels <- paste("<p><b> Continent </b>: ", filtered_df$Continent, "</p>",
                   "<p><b> Country </b>: ", filtered_df$Country, "</p>",
                   "<p><b> Cost of Living Index </b>: ", filtered_df$cost_living, "</p>",
                   sep="")
-  
+
   leaflet() %>%
     addTiles(urlTemplate="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")%>%
-    addRectangles(lng1 = filtered_df_country$longitude - 3, lat1 = filtered_df_country$latitude - 2,
-                  lng2 = filtered_df_country$longitude + 3, lat2 = filtered_df_country$latitude + 2,
+    addRectangles(lng1 = filtered_df_country$longitude - 2, lat1 = filtered_df_country$latitude - 2,
+                  lng2 = filtered_df_country$longitude + 2, lat2 = filtered_df_country$latitude + 2,
                   color = "black", fillOpacity = 0, weight = 3) %>%
     addCircleMarkers(data = filtered_df,
                      lat = ~latitude,
@@ -139,7 +139,7 @@ observeEvent(input$map1_marker_click, {
 
 # bar plot 1
 output$barPlot1 <- renderPlotly({
-  
+
   # ========================
   # code below for bar plot
   # ========================
@@ -149,7 +149,7 @@ output$barPlot1 <- renderPlotly({
 br()
 # bar plot 2
 output$barPlot2 <- renderPlotly({
-  
+
   # ========================
   # code below for bar plot
   # ========================
@@ -190,7 +190,7 @@ output$distplot1 <- renderPlotly({
       line = list(color = color, dash = "dot")
     )
   }
-  
+
   gg <- ggplot(filtered_df, aes(x = cost_living)) +
     geom_histogram(aes(y = after_stat(density)), color = "white", fill = "#1F77B4", binwidth = 3) +
     geom_density(outline.type = "upper", adjust = 1.75, linewidth = 0.4) +
@@ -200,13 +200,13 @@ output$distplot1 <- renderPlotly({
     # annotate("text", x = filtered_df_country$cost_living + 12, y = 0.03, label = filtered_df_country$Country) +
     geom_vline(aes(xintercept=filtered_df_country$cost_living),
                 color="red", linetype="dash", linewidth = 0.4) +
-    scale_x_continuous(limits = c(min(filtered_df$cost_living),max(filtered_df$cost_living)), expand = c(0, 0)) +
+    scale_x_continuous(limits = c(min(filtered_df$cost_living) - 20,max(filtered_df$cost_living) + 20), expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0)) +
-    theme_bw() 
+    theme_bw()
 
   ggplotly(gg) %>%
     layout(
-      title = "",
+      title = list(text = "Cost of Living Distribution Plot", y = 0.995),
       xaxis = list(title = "Cost of Living Index"),
       yaxis = list(title = "Density"),
       shapes = list(
@@ -220,9 +220,9 @@ output$distplot1 <- renderPlotly({
                  xshift = 45, yshift = 10, font = list(size = 12)) %>%
     add_annotations(
       x = filtered_df_country$cost_living, y = 0.03,
-      text = filtered_df_country$Country,
+      text = paste(filtered_df_country$Country, '(', filtered_df_country$cost_living ,')'),
       showarrow = FALSE,
-      xshift = 40, yshift = 10, font = list(size = 12)
+      xshift = 70, yshift = 10, font = list(size = 12)
    )
 })
 
@@ -232,22 +232,22 @@ output$distplot1 <- renderPlotly({
 #Index hashmap
 index_hash <- data.frame(
   row.names=c(
-    "Cost of Living Index", 
-    "Rent Index", 
-    "Cost of Living Plus Rent Index", 
-    "Groceries Index", 
-    "Restaurant Price Index", 
+    "Cost of Living Index",
+    "Rent Index",
+    "Cost of Living Plus Rent Index",
+    "Groceries Index",
+    "Restaurant Price Index",
     "Local Purchasing Power Index"
-  ) , 
+  ) ,
   val=c(
-    "cost_living", 
-    "rent_index", 
-    "cost_living_rent_index", 
-    "groceries_index", 
-    "rest_price_index", 
+    "cost_living",
+    "rent_index",
+    "cost_living_rent_index",
+    "groceries_index",
+    "rest_price_index",
     "purchasing_power_index"
   ))
-  
+
 
 output$scatterplot <- renderPlotly({
   filtered_df <- filtered_df()
@@ -261,13 +261,12 @@ output$scatterplot <- renderPlotly({
   })
   x_axis_select <- toString(x_axis_select())
   y_axis_select <- toString(y_axis_select())
-  print(index_hash[x_axis_select, ])
-  plot_ly(filtered_df, 
-          x = as.formula(paste0('~', index_hash[x_axis_select, ])), 
-          y = as.formula(paste0('~', index_hash[y_axis_select, ])), 
+  plot_ly(filtered_df,
+          x = as.formula(paste0('~', index_hash[x_axis_select, ])),
+          y = as.formula(paste0('~', index_hash[y_axis_select, ])),
           type = "scatter") |>
-    layout(title = "Correlation Plot between Indices", 
-           xaxis = list(title = x_axis_select), 
+    layout(title = "Correlation Plot between Indices",
+           xaxis = list(title = x_axis_select),
            yaxis = list(title = y_axis_select))
-  
+
 })
