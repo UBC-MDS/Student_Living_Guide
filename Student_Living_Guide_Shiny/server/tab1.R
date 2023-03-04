@@ -28,38 +28,33 @@ mean_col_continent <- reactive({
 
 # observe component
 observe({
-
+  
   # reactive element 1: select all continent if "select all" checked
-  observeEvent(input$all_cont_checkbox,
-    {
-      if (is.null(input$all_cont_checkbox)) {
-        selected_ <- character(0) # no choice selected
-      } else {
-        selected_ <- unique(df$Continent)
-      }
-      updatePrettyCheckboxGroup(
+  observeEvent(input$all_cont_checkbox, {
+    if (is.null(input$all_cont_checkbox)) {
+      selected_ <- character(0) # no choice selected
+    } else {
+      selected_ <- unique(df$Continent)
+    }
+    updatePrettyCheckboxGroup(
+      session = session,
+      inputId = "continent_select",
+      selected = selected_
+    )
+  }, ignoreNULL = FALSE)
+  
+  # reactive element 2: un-select "select_all" if no continent selected
+  observeEvent(input$continent_select, {
+    if (is.null(input$continent_select)) {
+      selected_ <- FALSE
+      updateCheckboxGroupInput(
         session = session,
-        inputId = "continent_select",
+        inputId = "all_cont_checkbox",
         selected = selected_
       )
-    },
-    ignoreNULL = FALSE
-  )
-
-  # reactive element 2: un-select "select_all" if no continent selected
-  observeEvent(input$continent_select,
-    {
-      if (is.null(input$continent_select)) {
-        selected_ <- FALSE
-        updateCheckboxGroupInput(
-          session = session,
-          inputId = "all_cont_checkbox",
-          selected = selected_
-        )
-      }
-    },
-    ignoreNULL = FALSE
-  )
+    }
+  }, ignoreNULL = FALSE)
+  
 })
 
 # Render the table output
@@ -72,46 +67,37 @@ output$map1 <- renderLeaflet({
   filtered_df <- filtered_df()
   filtered_df_country <- filtered_df_country()
   # define color map
-  bins <- seq(
-    from = floor(min(filtered_df$cost_living)),
-    to = ceiling(max(filtered_df$cost_living)),
-    length.out = 11
-  )
+  bins <- seq(from = floor(min(filtered_df$cost_living)),
+              to = ceiling(max(filtered_df$cost_living)),
+              length.out = 11)
   colors_0_100 <- colorRampPalette(c("blue", "purple"))(99)
   colors_0_100_200 <- c(colors_0_100, "black", rev(colorRampPalette(c("red", "yellow"))(99)))
-
+  
   pal <- colorBin(colors_0_100_200, domain = filtered_df$cost_living, bins = bins)
-
+  
   # define data point label
   labels <- paste("<p><b> Continent </b>: ", filtered_df$Continent, "</p>",
-    "<p><b> Country </b>: ", filtered_df$Country, "</p>",
-    "<p><b> Cost of Living Index </b>: ", filtered_df$cost_living, "</p>",
-    sep = ""
-  )
-
+                  "<p><b> Country </b>: ", filtered_df$Country, "</p>",
+                  "<p><b> Cost of Living Index </b>: ", filtered_df$cost_living, "</p>",
+                  sep="")
+  
   leaflet() %>%
-    addTiles(urlTemplate = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png") %>%
-    addRectangles(
-      lng1 = filtered_df_country$longitude - 3, lat1 = filtered_df_country$latitude - 2,
-      lng2 = filtered_df_country$longitude + 3, lat2 = filtered_df_country$latitude + 2,
-      color = "black", fillOpacity = 0, weight = 3
-    ) %>%
-    addCircleMarkers(
-      data = filtered_df,
-      lat = ~latitude,
-      lng = ~longitude,
-      color = ~ pal(filtered_df$cost_living),
-      label = lapply(labels, HTML),
-      layerId = filtered_df$Country,
-      radius = 5,
-      stroke = FALSE,
-      fillOpacity = 0.7
-    ) %>%
-    addLegend(
-      pal = pal, values = filtered_df$cost_living,
-      opacity = 0.7, position = "topright",
-      title = "Cost of Living Index"
-    ) %>%
+    addTiles(urlTemplate="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")%>%
+    addRectangles(lng1 = filtered_df_country$longitude - 3, lat1 = filtered_df_country$latitude - 2,
+                  lng2 = filtered_df_country$longitude + 3, lat2 = filtered_df_country$latitude + 2,
+                  color = "black", fillOpacity = 0, weight = 3) %>%
+    addCircleMarkers(data = filtered_df,
+                     lat = ~latitude,
+                     lng = ~longitude,
+                     color = ~pal(filtered_df$cost_living),
+                     label = lapply(labels, HTML),
+                     layerId = filtered_df$Country,
+                     radius = 5,
+                     stroke = FALSE,
+                     fillOpacity = 0.7) %>%
+    addLegend(pal = pal, values = filtered_df$cost_living,
+              opacity = 0.7, position="topright",
+              title = "Cost of Living Index") %>%
     setView(filtered_df_country$longitude, filtered_df_country$latitude, zoom = 4)
 })
 
@@ -122,26 +108,26 @@ observeEvent(input$map1_marker_click, {
 
 # bar plot 1
 output$barPlot1 <- renderPlotly({
-
+  
   # ========================
   # modify below for bar plot
   # ========================
-
-  plot_ly(df, x = ~Cost.of.Living.Index, y = ~Country, type = "bar") %>%
+  
+  plot_ly(df, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
     layout(title = "Living Cost Bar Plot", xaxis = list(title = "Living Cost"), yaxis = list(title = "Country"))
+  
 })
 
 # bar plot 2
 output$barPlot2 <- renderPlotly({
-
+  
   # ========================
   # modify below for bar plot
   # ========================
-  plot_ly(df, x = ~Cost.of.Living.Index, y = ~Country, type = "bar") %>%
-    layout(
-      title = "Living Cost Bar Plot",
-      xaxis = list(title = "latitude"), yaxis = list(title = "Country")
-    )
+  plot_ly(df, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
+    layout(title = "Living Cost Bar Plot",
+           xaxis = list(title = "latitude"), yaxis = list(title = "Country"))
+  
 })
 
 # ========================
@@ -178,14 +164,14 @@ output$distplot1 <- renderPlotly({
   }
   
   gg <- ggplot(filtered_df, aes(x = cost_living)) +
-    geom_histogram(aes(y = ..density..), color = "white", fill = "#1F77B4", binwidth = 3) +
+    geom_histogram(aes(y = after_stat(density)), color = "white", fill = "#1F77B4", binwidth = 3) +
     geom_density(outline.type = "upper", adjust = 1.75, linewidth = 0.4) +
     geom_vline(aes(xintercept = mean_col_continent),
-       color = "black", linetype = "solid", size = 0.4) +
+       color = "black", linetype = "solid", linewidth = 0.4) +
     # annotate("text", x = mean_col_continent + 12, y = 0.03, label = paste("Mean:", mean_col_continent)) +
     # annotate("text", x = filtered_df_country$cost_living + 12, y = 0.03, label = filtered_df_country$Country) +
     geom_vline(aes(xintercept=filtered_df_country$cost_living),
-                color="red", linetype="dash", size=0.4) +
+                color="red", linetype="dash", linewidth = 0.4) +
     scale_x_continuous(limits = c(min(filtered_df$cost_living),max(filtered_df$cost_living)), expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0)) +
     theme_bw() 
