@@ -2,6 +2,17 @@
 # read template data
 df <- read.csv('https://raw.githubusercontent.com/UBC-MDS/Student_Living_Guide/main/data/processed_data.csv', header=TRUE)
 
+data_arranged <- df|>
+  arrange(desc(`Cost.of.Living.Index`))
+
+lower_data =  tail(data_arranged , n = 10)
+up_data = head(data_arranged , n = 10)
+
+up_data$Country <- factor(up_data$Country, levels = unique(up_data$Country)[order(up_data$Cost.of.Living.Index, decreasing = FALSE)])
+lower_data$Country <-factor(lower_data$Country, levels = unique(lower_data$Country)[order(lower_data$Cost.of.Living.Index, decreasing = FALSE)])
+
+
+
 # reactive variables e.g. filtering df
 filtered_df <- reactive({
   # data filtering based on selected country & continent(s)
@@ -109,20 +120,20 @@ output$barPlot1 <- renderPlotly({
   # modify below for bar plot
   # ========================
 
-  plot_ly(df, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
-    layout(title = "Living Cost Bar Plot", xaxis = list(title = "Living Cost"), yaxis = list(title = "Country"))
+  plot_ly(up_data, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
+    layout(title = "The 10 most expensive countries", xaxis = list(title = "Cost index"), yaxis = list(title = "Country"))
 
 })
-
+br()
 # bar plot 2
 output$barPlot2 <- renderPlotly({
 
   # ========================
   # modify below for bar plot
   # ========================
-  plot_ly(df, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
-    layout(title = "Living Cost Bar Plot",
-           xaxis = list(title = "latitude"), yaxis = list(title = "Country"))
+  plot_ly(lower_data, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
+    layout(title = "The 10 least expensive countries",
+           xaxis = list(title = "Cost index"),  yaxis = list(title = "Country"))
 
 })
 
