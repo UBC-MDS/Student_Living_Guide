@@ -10,6 +10,10 @@ The first graph is a bar chart in the top left corner (beside the filters) depic
 
 ![](img/sketch.png)
 
+# Dashboard Demo
+
+![](img/ezgif.com-video-to-gif.gif)
+
 # Usage
 
 General steps for reproducing the data preprocessing.
