@@ -38,7 +38,7 @@ fluidPage(
         ),
         fluidRow(
           # scatter plot
-          tableOutput(outputId = "demo_table") # <- change it to scatter plot / plotly output
+          plotlyOutput("scatterplot") 
         )
       )
     )
