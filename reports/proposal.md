@@ -17,6 +17,11 @@ Quan is a 22-years old student pursuing an undergraduate degree in Neuroscience 
 
 The cost-of-living data on which the application `Student_Living_Guide` is based on New York as a reference point, therefore, the target market for our application is any student living in New York and who is considering other countries to pursue their studies. The `Student_Living_Guide` will guide them in making a more informed decision about the country they wish to pursue their studies.
 
+### Usage
+
+With the Student Living guide, student in New York desiring to pursue their studies elsewhere will be able to find the necessary information to comparing the living cost of any place with New York. Indeed, the can select any country from the list of countries to view the Cost of living displayed through the aid of a map as well as a density plot. Lastly, students can also select any two indices they wish to check the correlation which will be displayed in a scatter plot.
+
+
 ## Section 2: Description of the data
 
 We will visualize the Numbeo Cost of Living Index dataset, which contains information on the cost of living in cities across the globe. `Cost of Living Index`, `Rent Index`, `Groceries Index`, `Restaurant Price Index` and `Local Purchasing Power Index` are the five primary indices included in the dataset. All the indices take New York City with a score of 100 as a reference point.
@@ -46,3 +51,5 @@ Through our application, students in the shoes of our fictional character Quan w
 - What is the correlation between different indexes? For example, what is the correlation between the Groceries Index and Restaurant Price Index?
 
 - Which country has the closest living cost compared to New York?
+
+
