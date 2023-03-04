@@ -49,6 +49,35 @@ geopy==2.3.0                # for obtaining the latitude, longitude
 pandas>=1.3.*               # for dataframe reading & storing
 ```
 
+
+# Developing the app locally
+
+Interested in contributing to the project? This section provides instructions on how to install and configure the necessary tools and dependencies to get started. 
+
+To develop `Student_Living_Guide` locally:
+1. Clone this repository 
+```   
+git clone https://github.com/UBC-MDS/Student_Living_Guide.git
+```
+1. Install R and RStudio on your local machine.
+2. Open RStudio and set the current working directory to where you clone the repo.
+3. Install all the dependencies by running the following code in the R console: 
+```
+install.packages(c("shiny", "shinyjs", "shinydashboard", "shinythemes", "shinycssloaders", "shinyWidgets", "leaflet", "plotly", "circlize", "ggplot2"))
+```
+4. To run the app locally, run the following command in the R console:
+```
+runApp("Student_Living_Guide_Shiny")
+```
+5. Alternatively, you can navigate into the folder `Student_Living_Guide_Shiny` and open the `app.R` script. Then, click on the Run App button at the top of the editor.
+   
+6. The script for the `ui` objects is located in `Student_Living_Guide_Shiny\ui\tab1.R` while the script for the `server` function is located in `Student_Living_Guide_Shiny\ui\tab1.R`.
+
+# Contributions
+Interested in contributing? Please check out our [contributors' guidelines](CONTRIBUTING.md). 
+
+It is important to maintain a welcoming and respectful environment while you contribute to the project. Before contributing, please take a moment to review the [code of conduct](CODE_OF_CONDUCT.md) to ensure that your contributions align with our values.
+
 # License
 Licensed under the terms of the MIT license.
 Cost of Living dataset taken from https://www.numbeo.com/cost-of-living/rankings.jsp
