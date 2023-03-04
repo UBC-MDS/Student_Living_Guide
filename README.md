@@ -8,6 +8,19 @@ We plan on having four graphs that will summarize the entire dataset and help an
 
 The first graph is a bar chart in the top left corner (beside the filters) depicting the 10 with the highest and lowest Cost of Living index. The two charts - highest and lowest Cost of Living are placed one on top of the other. The second graph is a map that will be on the top right corner capturing the Cost of Living Index of each country on the world map. The magnitude of the value is shown by the size of the circle. The third graph comes directly below it and will tell us if there is a direct correlation between some of the features for eg. there seems to be a high dependence of the restaurant index with the cost of living index. The fourth graph is a probability distribution plot of the cost of living index of all the countries.
 
+#
+The following table of contents provides a overview of the Student Living Guide app and its different sections, you can use the links below to easily navigate to the section of interest.
+
+- [Introduction](#student-living-guide)
+- [Dashboard Demo](#dashboard-demo)
+- [Reproducing the processed data](#usage)
+- [Required Python packages for data preprocessing](#requirements)
+- [Developing the app locally](#developing-the-app-locally)
+- [Contributions](#contributions)
+- [License](#license)
+
+# Dashboard Sketch
+
 ![](img/sketch.png)
 
 # Dashboard Demo
