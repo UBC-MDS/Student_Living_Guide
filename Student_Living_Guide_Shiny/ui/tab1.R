@@ -1,7 +1,6 @@
 fluidPage(
   fluidRow(
-    titlePanel(h1("**Draft Only**",
-                  style='padding-left: 15px'))
+    p('*All the index value is based on New York as a reference point *')
   ),
   fluidRow(
     box(
@@ -13,8 +12,8 @@ fluidPage(
         fluidRow(
           # bar plot 1
           withSpinner(plotlyOutput("barPlot1"), type=3, color.background = "white"),fluidRow()
-        ), 
-        
+        ),
+
         fluidRow(
           # bar plot 2
           withSpinner(plotlyOutput("barPlot2"), type=3, color.background = "white")
@@ -24,21 +23,25 @@ fluidPage(
     ,
     box(
       width = 8,
-      title ="column2",
+      title ="Map, Distribution & Scatter Plot",
       status = "success",
 
       fluidPage(
         fluidRow(
           # map plot
-          leafletOutput("map1", height = "650px")
+          leafletOutput("map1", height = "650px"),
+          br()
         ),
+        fluidRow(div()),
         fluidRow(
           # distribution plot
-          plotlyOutput("distplot1")
+          plotlyOutput("distplot1"),
+          br(),br()
         ),
+
         fluidRow(
           # scatter plot
-          plotlyOutput("scatterplot") 
+          plotlyOutput("scatterplot")
         )
       )
     )
