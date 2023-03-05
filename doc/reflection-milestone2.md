@@ -9,6 +9,8 @@
 
 3. Two bar plots: One showing the 10 most expensive countries and the other one showing the 10 less expensive countries in our dataset based on the cost of living index.
 
+4. Scatter plot that highlights the relation between each of the indices.
+
 
 ## Things that are not implemented yet in our dashboard
 
@@ -33,4 +35,6 @@ of the index and provide more flexibility to the customer.
 3. For the distribution plot, we added vertical lines for the mean and the selected country's cost of living. However, we found it hard to dynamically adjust the position of the annotated texts using `ggplot`. 
 
 4. Currently our bar plots showing the 10 most and least expensive countries are static and we could add reactivity  to it. For example when the user points at a country's bar plot, it can show the difference index value with New York City.
+
+5. The third and fourth reactivity (selecting the x and y axis scale) is relevant only to the scatterplot and not relevant to the others. It is misleading to place it along with the country and continent filter. Moving it somewhere closer to the scatter plot would make the dashboard easy to understand.
 
