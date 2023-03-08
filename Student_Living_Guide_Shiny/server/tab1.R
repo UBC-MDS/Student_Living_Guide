@@ -56,37 +56,8 @@ mean_col_continent <- reactive({
 # end of data reading & filtering
 # ============================================
 
-
-# observe component
-observe({
-
-  # reactive element 1: select all continent if "select all" checked
-  observeEvent(input$all_cont_checkbox, {
-    if (is.null(input$all_cont_checkbox)) {
-      selected_ <- character(0) # no choice selected
-    } else {
-      selected_ <- unique(df$Continent)
-    }
-    updatePrettyCheckboxGroup(
-      session = session,
-      inputId = "continent_select",
-      selected = selected_
-    )
-  }, ignoreNULL = FALSE)
-
-  # reactive element 2: un-select "select_all" if no continent selected
-  observeEvent(input$continent_select, {
-    if (is.null(input$continent_select)) {
-      selected_ <- FALSE
-      updateCheckboxGroupInput(
-        session = session,
-        inputId = "all_cont_checkbox",
-        selected = selected_
-      )
-    }
-  }, ignoreNULL = FALSE)
-
-})
+# ============================================
+# Output Rendering Server Code - [Start]
 
 # Render the table output
 output$demo_table <- renderTable({
@@ -270,3 +241,6 @@ output$scatterplot <- renderPlotly({
            yaxis = list(title = y_axis_select))
 
 })
+
+# Output Rendering Server Code - [End]
+# ============================================
