@@ -31,19 +31,17 @@ ui <- dashboardPage(
      ,
      fluidPage(
        fluidRow(
-         checkboxGroupInput(
-           inputId = "all_cont_checkbox", label = "Select all continents",
-           choices = "All Continents", inline = TRUE,
-           selected = "All Continents"
-         ),
-         prettyCheckboxGroup(
+         pickerInput(
            inputId = "continent_select",
-           label = "Select the continent(s)",
+           label = "Select the Continent(s)",
            choices = unique(df$Continent),
            selected = unique(df$Continent),
-           outline = TRUE,
-           plain = TRUE,
-           icon = icon("map-pin")
+           options = pickerOptions(
+             actionsBox = TRUE,
+             size = 10,
+             selectedTextFormat = "count > 1",
+           ),
+           multiple = TRUE
          ),
          selectizeInput(
            "country_select",
