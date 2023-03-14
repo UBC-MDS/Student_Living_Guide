@@ -9,6 +9,7 @@ lower_data =  tail(data_arranged , n = 10)
 up_data = head(data_arranged , n = 10)
 
 up_data$Country <- factor(up_data$Country, levels = unique(up_data$Country)[order(up_data$Cost.of.Living.Index, decreasing = FALSE)])
+
 lower_data$Country <-factor(lower_data$Country, levels = unique(lower_data$Country)[order(lower_data$Cost.of.Living.Index, decreasing = FALSE)])
 
 
@@ -139,24 +140,40 @@ observeEvent(input$map1_marker_click, {
 
 # bar plot 1
 output$barPlot1 <- renderPlotly({
-
+  # get filtered data
+  filtered_df <- filtered_df()
+  data_arranged <- filtered_df|>
+    arrange(desc(`cost_living`))
+  
+  up_data = head(data_arranged , n = 10)
+  up_data$Country <- factor(up_data$Country, levels = unique(up_data$Country)[order(up_data$cost_living, decreasing = FALSE)])
   # ========================
   # code below for bar plot
   # ========================
-  plot_ly(up_data, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
-    layout(title = "The 10 most expensive countries", xaxis = list(title = "Cost index"), yaxis = list(title = "Country"))
+  plot_ly(up_data, x = ~cost_living, y = ~Country, type = 'bar') %>%
+    layout(title = paste("The ", nrow(up_data), " most expensive countries"), xaxis = list(title = "Cost index"), yaxis = list(title = "Country"))
 })
 br()
 # bar plot 2
 output$barPlot2 <- renderPlotly({
-
+  # get filtered data
+  filtered_df <- filtered_df()
+  data_arranged <- filtered_df|>
+    arrange(desc(`cost_living`))
+  
+  lower_data = tail(data_arranged , n = 10)
+  lower_data$Country <- factor(lower_data$Country, levels = unique(lower_data$Country)[order(lower_data$cost_living, decreasing = FALSE)])
+ 
+  
   # ========================
   # code below for bar plot
   # ========================
-  plot_ly(lower_data, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
-    layout(title = "The 10 least expensive countries",
+  plot_ly(lower_data, x = ~cost_living, y = ~Country, type = 'bar') %>%
+    layout(title = paste("The ", nrow(lower_data), " least expensive countries"),
            xaxis = list(title = "Cost index"),  yaxis = list(title = "Country"))
 })
+
+
 
 # ========================
 # code below for distribution plot
