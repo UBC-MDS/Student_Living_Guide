@@ -1,0 +1,13 @@
+name: Student_Living_Guide_Shiny
+title: Student_Living_Guide_Shiny
+username:
+account: caesarwong
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8336684
+bundleId: 6914772
+url: https://caesarwong.shinyapps.io/Student_Living_Guide_Shiny/
+when: 1677913153.15593
+lastSyncTime: 1677913153.15594
+asMultiple: FALSE
+asStatic: FALSE

@@ -25,10 +25,6 @@ ui <- dashboardPage(
 
   dashboardSidebar(
      collapsed = FALSE,
-     sidebarMenu(id="sidebar001",
-                 menuItem("Overview", tabName = "tab1", icon = icon("table-columns"))
-     )
-     ,
      fluidPage(
        fluidRow(
          checkboxGroupInput(
@@ -65,10 +61,16 @@ ui <- dashboardPage(
   ),
 
   dashboardBody(
-    # define tabItems with separated UI R script
-    tabItems(
-      tabItem(tabName = "tab1", source(file.path("ui", "tab1.R"),  local = TRUE)$value)
-    ),
+
+      fluidRow(
+        tabBox(
+          title = "",
+          id = "tabset1", height = "800px", width=12,
+          tabPanel("Bar Plot & Map", source(file.path("ui", "tab1.R"),  local = TRUE)$value),
+          tabPanel("Distribution Plot & Scatter Plot", source(file.path("ui", "tab2.R"),  local = TRUE)$value)
+        )
+      ),
+
     # enable shinyjs
     shinyjs::useShinyjs(),
     # tag header, script, css, etc.
