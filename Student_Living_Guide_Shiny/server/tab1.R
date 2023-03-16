@@ -66,7 +66,7 @@ observeEvent(input$continent_select, {
       inputId = "country_select",
       choices = c("United States")
     )
-    showNotification("Default country available is United States", type = "warning")
+    showNotification("The default country is United States", type = "warning")
 
   } else {
     continent_df <- df |>
