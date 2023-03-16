@@ -31,6 +31,7 @@ ui <- dashboardPage(
     ,
     fluidPage(
       fluidRow(
+        
         checkboxGroupInput(
           inputId = "all_cont_checkbox", label = "Select all continents",
           choices = "All Continents", inline = TRUE,
@@ -59,6 +60,11 @@ ui <- dashboardPage(
           "y_axis_select",
           label = "Select y_axis for correlation between indixes",
           choices = c("Cost of Living Index", "Rent Index", "Cost of Living Plus Rent Index", "Groceries Index", "Restaurant Price Index", "Local Purchasing Power Index")
+        ),
+        div(
+          class = "text-center",
+          tags$style(type="text/css", "#downloadData {color: black;}"),
+          downloadButton("downloadData", "Download selected data", class = "butt")
         )
       )
     )
