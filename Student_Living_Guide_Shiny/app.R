@@ -22,33 +22,33 @@ ui <- dashboardPage(
   dashboardHeader(
     title = "Student Living Guide"
   ),
-
+  
   dashboardSidebar(
-     collapsed = FALSE,
-     sidebarMenu(id="sidebar001",
-                 menuItem("Overview", tabName = "tab1", icon = icon("table-columns"))
-     )
-     ,
-     fluidPage(
-       fluidRow(
-         checkboxGroupInput(
-           inputId = "all_cont_checkbox", label = "Select all continents",
-           choices = "All Continents", inline = TRUE,
-           selected = "All Continents"
-         ),
-         prettyCheckboxGroup(
-           inputId = "continent_select",
-           label = "Select the continent(s)",
-           choices = unique(df$Continent),
-           selected = unique(df$Continent),
-           outline = TRUE,
-           plain = TRUE,
-           icon = icon("map-pin")
-         ),
-         selectizeInput(
-           "country_select",
-           label = "Select countries",
-           choices = unique(df$Country)
+    collapsed = FALSE,
+    sidebarMenu(id="sidebar001",
+                menuItem("Overview", tabName = "tab1", icon = icon("table-columns"))
+    )
+    ,
+    fluidPage(
+      fluidRow(
+        checkboxGroupInput(
+          inputId = "all_cont_checkbox", label = "Select all continents",
+          choices = "All Continents", inline = TRUE,
+          selected = "All Continents"
+        ),
+        prettyCheckboxGroup(
+          inputId = "continent_select",
+          label = "Select the continent(s)",
+          choices = unique(df$Continent),
+          selected = unique(df$Continent),
+          outline = TRUE,
+          plain = TRUE,
+          icon = icon("map-pin")
+        ),
+        selectizeInput(
+          "country_select",
+          label = "Select countries",
+          choices = unique(df$Country)
         ),
         selectizeInput(
           "x_axis_select",
@@ -60,10 +60,10 @@ ui <- dashboardPage(
           label = "Select y_axis for correlation between indixes",
           choices = c("Cost of Living Index", "Rent Index", "Cost of Living Plus Rent Index", "Groceries Index", "Restaurant Price Index", "Local Purchasing Power Index")
         )
-       )
       )
+    )
   ),
-
+  
   dashboardBody(
     # define tabItems with separated UI R script
     tabItems(
