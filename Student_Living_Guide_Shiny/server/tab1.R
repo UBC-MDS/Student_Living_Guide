@@ -33,7 +33,7 @@ filtered_df <- reactive({
                    groceries_index = `Groceries.Index`,
                    rest_price_index = `Restaurant.Price.Index`,
                    purchasing_power_index = `Local.Purchasing.Power.Index`))
-  
+
 })
 
 filtered_df_country <- reactive({
@@ -57,60 +57,30 @@ mean_col_continent <- reactive({
 # end of data reading & filtering
 # ============================================
 
+# reactive element: choose countries part of selected continent
+observeEvent(input$continent_select, {
 
-# observe component
-observe({
-  
-  # reactive element 1: select all continent if "select all" checked
-  observeEvent(input$all_cont_checkbox, {
-    if (is.null(input$all_cont_checkbox)) {
-      selected_ <- character(0) # no choice selected
-    } else {
-      selected_ <- unique(df$Continent)
-    }
-    updatePrettyCheckboxGroup(
+  if (is.null(input$continent_select)) {
+    updateSelectizeInput(
       session = session,
-      inputId = "continent_select",
-      selected = selected_
+      inputId = "country_select",
+      choices = c("United States")
     )
-  }, ignoreNULL = FALSE)
-  
-  # reactive element 2: un-select "select_all" if no continent selected
-  observeEvent(input$continent_select, {
-    if (is.null(input$continent_select)) {
-      selected_ <- FALSE
-      updateCheckboxGroupInput(
-        session = session,
-        inputId = "all_cont_checkbox",
-        selected = selected_
-      )
-    }
-  }, ignoreNULL = FALSE)
-  
-  # reactive element 3: choose countries part of selected continent
-  observeEvent(input$continent_select, {
-    print("here bro 2")
-    if (is.null(input$continent_select)) {
-      updateSelectizeInput(
-        session = session,
-        inputId = "country_select",
-        choices = c()
-      )
-      
-    } else {
-      continent_df <- df |>
-        filter(Continent==input$continent_select)
-      updateSelectizeInput(
-        session = session,
-        inputId = "country_select",
-        choices = unique(continent_df$Country)
-      )
-    }
-    
-  }, ignoreNULL = FALSE)
-  
-  
-})
+    showNotification("Default country available is United States", type = "warning")
+
+  } else {
+    continent_df <- df |>
+      filter(Continent %in% input$continent_select)
+    updateSelectizeInput(
+      session = session,
+      inputId = "country_select",
+      choices = unique(continent_df$Country)
+    )
+  }
+
+}, ignoreNULL = FALSE)
+
+
 
 # Render the table output
 output$demo_table <- renderTable({
@@ -127,15 +97,15 @@ output$map1 <- renderLeaflet({
               length.out = 11)
   colors_0_100 <- colorRampPalette(c("blue", "purple"))(99)
   colors_0_100_200 <- c(colors_0_100, "black", rev(colorRampPalette(c("red", "yellow"))(99)))
-  
+
   pal <- colorBin(colors_0_100_200, domain = filtered_df$cost_living, bins = bins)
-  
+
   # define data point label
   labels <- paste("<p><b> Continent </b>: ", filtered_df$Continent, "</p>",
                   "<p><b> Country </b>: ", filtered_df$Country, "</p>",
                   "<p><b> Cost of Living Index </b>: ", filtered_df$cost_living, "</p>",
                   sep="")
-  
+
   leaflet() %>%
     addTiles(urlTemplate="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")%>%
     addRectangles(lng1 = filtered_df_country$longitude - 2, lat1 = filtered_df_country$latitude - 2,
@@ -167,7 +137,7 @@ output$barPlot1 <- renderPlotly({
   filtered_df <- filtered_df()
   data_arranged <- filtered_df|>
     arrange(desc(`cost_living`))
-  
+
   up_data = head(data_arranged , n = 10)
   up_data$Country <- factor(up_data$Country, levels = unique(up_data$Country)[order(up_data$cost_living, decreasing = FALSE)])
   # ========================
@@ -183,10 +153,10 @@ output$barPlot2 <- renderPlotly({
   filtered_df <- filtered_df()
   data_arranged <- filtered_df|>
     arrange(desc(`cost_living`))
-  
+
   lower_data = tail(data_arranged , n = 10)
   lower_data$Country <- factor(lower_data$Country, levels = unique(lower_data$Country)[order(lower_data$cost_living, decreasing = FALSE)])
-  
+
   # ========================
   # code below for bar plot
   # ========================
@@ -204,7 +174,7 @@ output$distplot1 <- renderPlotly({
   filtered_df <- filtered_df()
   filtered_df_country <- filtered_df_country()
   mean_col_continent <- mean_col_continent()
-  
+
   # continent cost of living mean value
   vline <- function(x = 0, color = "green") {
     list(
@@ -229,7 +199,7 @@ output$distplot1 <- renderPlotly({
       line = list(color = color, dash = "dot")
     )
   }
-  
+
   gg <- ggplot(filtered_df, aes(x = cost_living)) +
     geom_histogram(aes(y = after_stat(density)), color = "white", fill = "#1F77B4", binwidth = 3) +
     geom_density(outline.type = "upper", adjust = 1.75, linewidth = 0.4) +
@@ -242,7 +212,7 @@ output$distplot1 <- renderPlotly({
     scale_x_continuous(limits = c(min(filtered_df$cost_living) - 20,max(filtered_df$cost_living) + 20), expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0)) +
     theme_bw()
-  
+
   ggplotly(gg) %>%
     layout(
       title = list(text = "Cost of Living Distribution Plot", y = 0.995),
@@ -307,5 +277,5 @@ output$scatterplot <- renderPlotly({
     layout(title = "Correlation Plot between Indices",
            xaxis = list(title = x_axis_select),
            yaxis = list(title = y_axis_select))
-  
+
 })
