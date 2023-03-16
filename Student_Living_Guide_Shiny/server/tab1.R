@@ -115,7 +115,7 @@ observe({
 # Download filtered dataset
 output$downloadData <- downloadHandler(
   filename = function() {
-    paste("data-", Sys.Date(), ".csv", sep="")
+    paste("cost-of-living-selected", ".csv", sep="")
   },
   content = function(file) {
     filtered_df <- filtered_df()
