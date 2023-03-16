@@ -82,6 +82,17 @@ observeEvent(input$continent_select, {
 
 
 
+# Download filtered dataset
+output$downloadData <- downloadHandler(
+  filename = function() {
+    paste("cost-of-living-selected", ".csv", sep="")
+  },
+  content = function(file) {
+    filtered_df <- filtered_df()
+    write.csv(filtered_df, file)
+  }
+)
+
 # Render the table output
 output$demo_table <- renderTable({
   filtered_df()
