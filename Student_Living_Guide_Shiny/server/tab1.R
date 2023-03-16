@@ -87,6 +87,29 @@ observe({
     }
   }, ignoreNULL = FALSE)
   
+  # reactive element 3: choose countries part of selected continent
+  observeEvent(input$continent_select, {
+    print("here bro 2")
+    if (is.null(input$continent_select)) {
+      updateSelectizeInput(
+        session = session,
+        inputId = "country_select",
+        choices = c()
+      )
+      
+    } else {
+      continent_df <- df |>
+        filter(Continent==input$continent_select)
+      updateSelectizeInput(
+        session = session,
+        inputId = "country_select",
+        choices = unique(continent_df$Country)
+      )
+    }
+    
+  }, ignoreNULL = FALSE)
+  
+  
 })
 
 # Render the table output
