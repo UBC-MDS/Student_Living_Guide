@@ -14,7 +14,6 @@ library(dplyr)
 # ===       Global Variables       ===
 # ====================================
 df <- read.csv('https://raw.githubusercontent.com/UBC-MDS/Student_Living_Guide/main/data/processed_data.csv', header=TRUE)
-
 # ====================================
 # ===              UI              ===
 # ====================================
@@ -22,7 +21,7 @@ ui <- dashboardPage(
   dashboardHeader(
     title = "Student Living Guide"
   ),
-  
+
   dashboardSidebar(
     collapsed = FALSE,
     sidebarMenu(id="sidebar001",
@@ -31,19 +30,19 @@ ui <- dashboardPage(
     ,
     fluidPage(
       fluidRow(
-        checkboxGroupInput(
-          inputId = "all_cont_checkbox", label = "Select all continents",
-          choices = "All Continents", inline = TRUE,
-          selected = "All Continents"
-        ),
-        prettyCheckboxGroup(
+        pickerInput(
           inputId = "continent_select",
-          label = "Select the continent(s)",
+          label = "Select the Continent(s)",
           choices = unique(df$Continent),
           selected = unique(df$Continent),
-          outline = TRUE,
-          plain = TRUE,
-          icon = icon("map-pin")
+          options = pickerOptions(
+            actionsBox = TRUE,
+            size = 10,
+            selectedTextFormat = "count > 1",
+            noneSelectedText = "Please select >0 continent"
+          ),
+          multiple = TRUE,
+
         ),
         selectizeInput(
           "country_select",
@@ -63,7 +62,7 @@ ui <- dashboardPage(
       )
     )
   ),
-  
+
   dashboardBody(
     # define tabItems with separated UI R script
     tabItems(
