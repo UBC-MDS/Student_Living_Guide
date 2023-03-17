@@ -9,6 +9,7 @@ library(plotly)
 library(circlize)
 library(ggplot2)
 library(dplyr)
+library(shinytest2)
 
 # ====================================
 # ===       Global Variables       ===
