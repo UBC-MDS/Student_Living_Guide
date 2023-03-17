@@ -24,10 +24,6 @@ ui <- dashboardPage(
 
   dashboardSidebar(
     collapsed = FALSE,
-    sidebarMenu(id="sidebar001",
-                menuItem("Overview", tabName = "tab1", icon = icon("table-columns"))
-    )
-    ,
     fluidPage(
       fluidRow(
         pickerInput(
@@ -58,11 +54,6 @@ ui <- dashboardPage(
           label = "Select y_axis for correlation between indixes",
           choices = c("Cost of Living Index", "Rent Index", "Cost of Living Plus Rent Index", "Groceries Index", "Restaurant Price Index", "Local Purchasing Power Index")
         ),
-        checkboxGroupInput(
-          inputId = "all_cont_checkbox", label = "Select all continents",
-          choices = "All Continents", inline = TRUE,
-          selected = "All Continents"
-        ),
         div(
           class = "text-center",
           tags$style(type="text/css", "#downloadData {color: black;}"),
@@ -73,10 +64,16 @@ ui <- dashboardPage(
   ),
 
   dashboardBody(
-    # define tabItems with separated UI R script
-    tabItems(
-      tabItem(tabName = "tab1", source(file.path("ui", "tab1.R"),  local = TRUE)$value)
+
+    fluidRow(
+      tabBox(
+        title = "",
+        id = "tabset1", height = "800px", width=12,
+        tabPanel("Bar Plot & Map", source(file.path("ui", "tab1.R"),  local = TRUE)$value),
+        tabPanel("Distribution Plot & Scatter Plot", source(file.path("ui", "tab2.R"),  local = TRUE)$value)
+      )
     ),
+
     # enable shinyjs
     shinyjs::useShinyjs(),
     # tag header, script, css, etc.
