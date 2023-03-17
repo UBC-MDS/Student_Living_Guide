@@ -14,7 +14,6 @@ library(dplyr)
 # ===       Global Variables       ===
 # ====================================
 df <- read.csv('https://raw.githubusercontent.com/UBC-MDS/Student_Living_Guide/main/data/processed_data.csv', header=TRUE)
-
 # ====================================
 # ===              UI              ===
 # ====================================
@@ -24,27 +23,26 @@ ui <- dashboardPage(
   ),
 
   dashboardSidebar(
-     collapsed = FALSE,
-     fluidPage(
-       fluidRow(
-         checkboxGroupInput(
-           inputId = "all_cont_checkbox", label = "Select all continents",
-           choices = "All Continents", inline = TRUE,
-           selected = "All Continents"
-         ),
-         prettyCheckboxGroup(
-           inputId = "continent_select",
-           label = "Select the continent(s)",
-           choices = unique(df$Continent),
-           selected = unique(df$Continent),
-           outline = TRUE,
-           plain = TRUE,
-           icon = icon("map-pin")
-         ),
-         selectizeInput(
-           "country_select",
-           label = "Select countries",
-           choices = unique(df$Country)
+    collapsed = FALSE,
+    fluidPage(
+      fluidRow(
+        pickerInput(
+          inputId = "continent_select",
+          label = "Select the Continent(s)",
+          choices = unique(df$Continent),
+          selected = unique(df$Continent),
+          options = pickerOptions(
+            actionsBox = TRUE,
+            size = 10,
+            selectedTextFormat = "count > 1",
+            noneSelectedText = "Please select >0 continent"
+          ),
+          multiple = TRUE
+        ),
+        selectizeInput(
+          "country_select",
+          label = "Select countries",
+          choices = unique(df$Country)
         ),
         selectizeInput(
           "x_axis_select",
@@ -55,21 +53,26 @@ ui <- dashboardPage(
           "y_axis_select",
           label = "Select y_axis for correlation between indixes",
           choices = c("Cost of Living Index", "Rent Index", "Cost of Living Plus Rent Index", "Groceries Index", "Restaurant Price Index", "Local Purchasing Power Index")
+        ),
+        div(
+          class = "text-center",
+          tags$style(type="text/css", "#downloadData {color: black;}"),
+          downloadButton("downloadData", "Download selected data", class = "butt")
         )
-       )
       )
+    )
   ),
 
   dashboardBody(
 
-      fluidRow(
-        tabBox(
-          title = "",
-          id = "tabset1", height = "800px", width=12,
-          tabPanel("Bar Plot & Map", source(file.path("ui", "tab1.R"),  local = TRUE)$value),
-          tabPanel("Distribution Plot & Scatter Plot", source(file.path("ui", "tab2.R"),  local = TRUE)$value)
-        )
-      ),
+    fluidRow(
+      tabBox(
+        title = "",
+        id = "tabset1", height = "800px", width=12,
+        tabPanel("Bar Plot & Map", source(file.path("ui", "tab1.R"),  local = TRUE)$value),
+        tabPanel("Distribution Plot & Scatter Plot", source(file.path("ui", "tab2.R"),  local = TRUE)$value)
+      )
+    ),
 
     # enable shinyjs
     shinyjs::useShinyjs(),

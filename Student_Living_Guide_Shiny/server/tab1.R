@@ -9,6 +9,7 @@ lower_data =  tail(data_arranged , n = 10)
 up_data = head(data_arranged , n = 10)
 
 up_data$Country <- factor(up_data$Country, levels = unique(up_data$Country)[order(up_data$Cost.of.Living.Index, decreasing = FALSE)])
+
 lower_data$Country <-factor(lower_data$Country, levels = unique(lower_data$Country)[order(lower_data$Cost.of.Living.Index, decreasing = FALSE)])
 
 
@@ -56,37 +57,41 @@ mean_col_continent <- reactive({
 # end of data reading & filtering
 # ============================================
 
+# reactive element: choose countries part of selected continent
+observeEvent(input$continent_select, {
 
-# observe component
-observe({
-
-  # reactive element 1: select all continent if "select all" checked
-  observeEvent(input$all_cont_checkbox, {
-    if (is.null(input$all_cont_checkbox)) {
-      selected_ <- character(0) # no choice selected
-    } else {
-      selected_ <- unique(df$Continent)
-    }
-    updatePrettyCheckboxGroup(
+  if (is.null(input$continent_select)) {
+    updateSelectizeInput(
       session = session,
-      inputId = "continent_select",
-      selected = selected_
+      inputId = "country_select",
+      choices = c("United States")
     )
-  }, ignoreNULL = FALSE)
+    showNotification("The default country is United States", type = "warning")
 
-  # reactive element 2: un-select "select_all" if no continent selected
-  observeEvent(input$continent_select, {
-    if (is.null(input$continent_select)) {
-      selected_ <- FALSE
-      updateCheckboxGroupInput(
-        session = session,
-        inputId = "all_cont_checkbox",
-        selected = selected_
-      )
-    }
-  }, ignoreNULL = FALSE)
+  } else {
+    continent_df <- df |>
+      filter(Continent %in% input$continent_select)
+    updateSelectizeInput(
+      session = session,
+      inputId = "country_select",
+      choices = unique(continent_df$Country)
+    )
+  }
 
-})
+}, ignoreNULL = FALSE)
+
+
+
+# Download filtered dataset
+output$downloadData <- downloadHandler(
+  filename = function() {
+    paste("cost-of-living-selected", ".csv", sep="")
+  },
+  content = function(file) {
+    filtered_df <- filtered_df()
+    write.csv(filtered_df, file)
+  }
+)
 
 # Render the table output
 output$demo_table <- renderTable({
@@ -139,24 +144,39 @@ observeEvent(input$map1_marker_click, {
 
 # bar plot 1
 output$barPlot1 <- renderPlotly({
+  # get filtered data
+  filtered_df <- filtered_df()
+  data_arranged <- filtered_df|>
+    arrange(desc(`cost_living`))
 
+  up_data = head(data_arranged , n = 10)
+  up_data$Country <- factor(up_data$Country, levels = unique(up_data$Country)[order(up_data$cost_living, decreasing = FALSE)])
   # ========================
   # code below for bar plot
   # ========================
-  plot_ly(up_data, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
-    layout(title = "The 10 most expensive countries", xaxis = list(title = "Cost index"), yaxis = list(title = "Country"))
+  plot_ly(up_data, x = ~cost_living, y = ~Country, type = 'bar') %>%
+    layout(title = paste("The ", nrow(up_data), " most expensive countries"), xaxis = list(title = "Cost index"), yaxis = list(title = "Country"))
 })
 br()
 # bar plot 2
 output$barPlot2 <- renderPlotly({
+  # get filtered data
+  filtered_df <- filtered_df()
+  data_arranged <- filtered_df|>
+    arrange(desc(`cost_living`))
+
+  lower_data = tail(data_arranged , n = 10)
+  lower_data$Country <- factor(lower_data$Country, levels = unique(lower_data$Country)[order(lower_data$cost_living, decreasing = FALSE)])
 
   # ========================
   # code below for bar plot
   # ========================
-  plot_ly(lower_data, x = ~Cost.of.Living.Index, y = ~Country, type = 'bar') %>%
-    layout(title = "The 10 least expensive countries",
+  plot_ly(lower_data, x = ~cost_living, y = ~Country, type = 'bar') %>%
+    layout(title = paste("The ", nrow(lower_data), " least expensive countries"),
            xaxis = list(title = "Cost index"),  yaxis = list(title = "Country"))
 })
+
+
 
 # ========================
 # code below for distribution plot
@@ -195,11 +215,11 @@ output$distplot1 <- renderPlotly({
     geom_histogram(aes(y = after_stat(density)), color = "white", fill = "#1F77B4", binwidth = 3) +
     geom_density(outline.type = "upper", adjust = 1.75, linewidth = 0.4) +
     geom_vline(aes(xintercept = mean_col_continent),
-       color = "black", linetype = "solid", linewidth = 0.4) +
+               color = "black", linetype = "solid", linewidth = 0.4) +
     # annotate("text", x = mean_col_continent + 12, y = 0.03, label = paste("Mean:", mean_col_continent)) +
     # annotate("text", x = filtered_df_country$cost_living + 12, y = 0.03, label = filtered_df_country$Country) +
     geom_vline(aes(xintercept=filtered_df_country$cost_living),
-                color="red", linetype="dash", linewidth = 0.4) +
+               color="red", linetype="dash", linewidth = 0.4) +
     scale_x_continuous(limits = c(min(filtered_df$cost_living) - 20,max(filtered_df$cost_living) + 20), expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0)) +
     theme_bw()
@@ -215,15 +235,15 @@ output$distplot1 <- renderPlotly({
       )
     ) %>%
     add_annotations(x = mean_col_continent, y = 0.038,
-                 text = paste("Mean:", mean_col_continent),
-                 showarrow = FALSE,
-                 xshift = 45, yshift = 10, font = list(size = 12)) %>%
+                    text = paste("Mean:", mean_col_continent),
+                    showarrow = FALSE,
+                    xshift = 45, yshift = 10, font = list(size = 12)) %>%
     add_annotations(
       x = filtered_df_country$cost_living, y = 0.03,
       text = paste(filtered_df_country$Country, '(', filtered_df_country$cost_living ,')'),
       showarrow = FALSE,
       xshift = 70, yshift = 10, font = list(size = 12)
-   )
+    )
 })
 
 # ========================
