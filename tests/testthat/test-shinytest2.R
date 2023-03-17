@@ -31,3 +31,28 @@ test_that("{shinytest2} recording: Distribution_Plot_and_Scatter_Plot", {
   app$expect_values()
   app$expect_screenshot()
 })
+
+
+test_that("{shinytest2} recording: Student_Living_Guide", {
+  app <- AppDriver$new(name = "Student_Living_Guide", height = 569, width = 979)
+  app$set_inputs(continent_select = c("Asia", "Africa", "South America", "Oceania", 
+      "North America"))
+  app$set_inputs(continent_select = c("Asia", "South America", "Oceania", "North America"))
+  app$set_inputs(continent_select = c("Asia", "Oceania", "North America"))
+  app$set_inputs(continent_select = c("Asia", "North America"))
+  app$set_inputs(continent_select = "Asia")
+  app$expect_values()
+})
+
+
+test_that("{shinytest2} recording: Distribution_Plot_and_Scatter_Plot_asia_oceania_NA", {
+  app <- AppDriver$new(name = "Distribution_Plot_and_Scatter_Plot_asia_oceania_NA", 
+      height = 569, width = 979)
+  app$set_inputs(tabset1 = "Distribution Plot & Scatter Plot")
+  app$set_inputs(continent_select = c("Asia", "Europe", "Africa", "Oceania", "North America"))
+  app$set_inputs(continent_select = c("Asia", "Europe", "Oceania", "North America"))
+  app$set_inputs(continent_select = c("Asia", "Oceania", "North America"))
+  app$set_inputs(x_axis_select = "Cost of Living Plus Rent Index")
+  app$set_inputs(y_axis_select = "Restaurant Price Index")
+  app$expect_values()
+})

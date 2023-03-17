@@ -1,0 +1,916 @@
+{
+  "input": {
+    ".clientValue-default-plotlyCrosstalkOpts": {
+      "on": "plotly_click",
+      "persistent": false,
+      "dynamic": false,
+      "selectize": false,
+      "opacityDim": 0.2,
+      "selected": {
+        "opacity": 1
+      },
+      "debounce": 0,
+      "color": [
+
+      ]
+    },
+    "continent_select": "Asia",
+    "country_select": "Afghanistan",
+    "map1_bounds": {
+      "north": 54.0593878866236,
+      "east": 83.759765625,
+      "south": 7.36246686553575,
+      "west": 48.69140625
+    },
+    "map1_center": {
+      "lng": 66.2385139,
+      "lat": 33.7680065
+    },
+    "map1_zoom": 4,
+    "plotly_afterplot-A": "\"barPlot2\"",
+    "sidebarCollapsed": false,
+    "sidebarItemExpanded": null,
+    "tabset1": "Bar Plot & Map",
+    "x_axis_select": "Cost of Living Index",
+    "y_axis_select": "Cost of Living Index"
+  },
+  "output": {
+    "barPlot1": {
+      "x": {
+        "layout": {
+          "margin": {
+            "b": 40,
+            "l": 60,
+            "t": 25,
+            "r": 10
+          },
+          "title": "The  10  most expensive countries",
+          "xaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "title": "Cost index"
+          },
+          "yaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "title": "Country",
+            "type": "category",
+            "categoryorder": "array",
+            "categoryarray": [
+              "Cyprus",
+              "Taiwan",
+              "Qatar",
+              "Macao",
+              "Lebanon",
+              "South Korea",
+              "Japan",
+              "Hong Kong",
+              "Singapore",
+              "Israel"
+            ]
+          },
+          "hovermode": "closest",
+          "showlegend": false
+        },
+        "source": "A",
+        "config": {
+          "modeBarButtonsToAdd": [
+            "hoverclosest",
+            "hovercompare"
+          ],
+          "showSendToCloud": false
+        },
+        "data": [
+          {
+            "x": [
+              88.05,
+              83.98,
+              80.71,
+              77.03,
+              73.22,
+              69.62,
+              66.81,
+              62.81,
+              62.35,
+              59.03
+            ],
+            "y": [
+              "Israel",
+              "Singapore",
+              "Hong Kong",
+              "Japan",
+              "South Korea",
+              "Lebanon",
+              "Macao",
+              "Qatar",
+              "Taiwan",
+              "Cyprus"
+            ],
+            "type": "bar",
+            "orientation": "h",
+            "marker": {
+              "color": "rgba(31,119,180,1)",
+              "line": {
+                "color": "rgba(31,119,180,1)"
+              }
+            },
+            "error_y": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "error_x": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          }
+        ],
+        "highlight": {
+          "on": "plotly_click",
+          "persistent": false,
+          "dynamic": false,
+          "selectize": false,
+          "opacityDim": 0.2,
+          "selected": {
+            "opacity": 1
+          },
+          "debounce": 0
+        },
+        "shinyEvents": [
+          "plotly_hover",
+          "plotly_click",
+          "plotly_selected",
+          "plotly_relayout",
+          "plotly_brushed",
+          "plotly_brushing",
+          "plotly_clickannotation",
+          "plotly_doubleclick",
+          "plotly_deselect",
+          "plotly_afterplot",
+          "plotly_sunburstclick"
+        ],
+        "base_url": "https://plot.ly"
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "setprototypeof",
+          "version": "0.1",
+          "src": {
+            "href": "setprototypeof-0.1"
+          },
+          "meta": null,
+          "script": "setprototypeof.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "typedarray",
+          "version": "0.1",
+          "src": {
+            "href": "typedarray-0.1"
+          },
+          "meta": null,
+          "script": "typedarray.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "3.5.1",
+          "src": {
+            "href": "jquery-3.5.1"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.2.0",
+          "src": {
+            "href": "crosstalk-1.2.0"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.min.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "plotly-htmlwidgets-css",
+          "version": "2.11.1",
+          "src": {
+            "href": "plotly-htmlwidgets-css-2.11.1"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "plotly-htmlwidgets.css",
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "plotly-main",
+          "version": "2.11.1",
+          "src": {
+            "href": "plotly-main-2.11.1"
+          },
+          "meta": null,
+          "script": "plotly-latest.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        }
+      ]
+    },
+    "barPlot2": {
+      "x": {
+        "layout": {
+          "margin": {
+            "b": 40,
+            "l": 60,
+            "t": 25,
+            "r": 10
+          },
+          "title": "The  10  least expensive countries",
+          "xaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "title": "Cost index"
+          },
+          "yaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "title": "Country",
+            "type": "category",
+            "categoryorder": "array",
+            "categoryarray": [
+              "Pakistan",
+              "Afghanistan",
+              "India",
+              "Uzbekistan",
+              "Nepal",
+              "Turkey",
+              "Kazakhstan",
+              "Syria",
+              "Azerbaijan",
+              "Georgia"
+            ]
+          },
+          "hovermode": "closest",
+          "showlegend": false
+        },
+        "source": "A",
+        "config": {
+          "modeBarButtonsToAdd": [
+            "hoverclosest",
+            "hovercompare"
+          ],
+          "showSendToCloud": false
+        },
+        "data": [
+          {
+            "x": [
+              30.18,
+              29.73,
+              28.75,
+              28.68,
+              28.31,
+              28.29,
+              27.31,
+              24.43,
+              20.37,
+              19.92
+            ],
+            "y": [
+              "Georgia",
+              "Azerbaijan",
+              "Syria",
+              "Kazakhstan",
+              "Turkey",
+              "Nepal",
+              "Uzbekistan",
+              "India",
+              "Afghanistan",
+              "Pakistan"
+            ],
+            "type": "bar",
+            "orientation": "h",
+            "marker": {
+              "color": "rgba(31,119,180,1)",
+              "line": {
+                "color": "rgba(31,119,180,1)"
+              }
+            },
+            "error_y": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "error_x": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          }
+        ],
+        "highlight": {
+          "on": "plotly_click",
+          "persistent": false,
+          "dynamic": false,
+          "selectize": false,
+          "opacityDim": 0.2,
+          "selected": {
+            "opacity": 1
+          },
+          "debounce": 0
+        },
+        "shinyEvents": [
+          "plotly_hover",
+          "plotly_click",
+          "plotly_selected",
+          "plotly_relayout",
+          "plotly_brushed",
+          "plotly_brushing",
+          "plotly_clickannotation",
+          "plotly_doubleclick",
+          "plotly_deselect",
+          "plotly_afterplot",
+          "plotly_sunburstclick"
+        ],
+        "base_url": "https://plot.ly"
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "setprototypeof",
+          "version": "0.1",
+          "src": {
+            "href": "setprototypeof-0.1"
+          },
+          "meta": null,
+          "script": "setprototypeof.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "typedarray",
+          "version": "0.1",
+          "src": {
+            "href": "typedarray-0.1"
+          },
+          "meta": null,
+          "script": "typedarray.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "3.5.1",
+          "src": {
+            "href": "jquery-3.5.1"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.2.0",
+          "src": {
+            "href": "crosstalk-1.2.0"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.min.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "plotly-htmlwidgets-css",
+          "version": "2.11.1",
+          "src": {
+            "href": "plotly-htmlwidgets-css-2.11.1"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "plotly-htmlwidgets.css",
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "plotly-main",
+          "version": "2.11.1",
+          "src": {
+            "href": "plotly-main-2.11.1"
+          },
+          "meta": null,
+          "script": "plotly-latest.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        }
+      ]
+    },
+    "map1": {
+      "x": {
+        "options": {
+          "crs": {
+            "crsClass": "L.CRS.EPSG3857",
+            "code": null,
+            "proj4def": null,
+            "projectedBounds": null,
+            "options": {
+
+            }
+          }
+        },
+        "calls": [
+          {
+            "method": "addTiles",
+            "args": [
+              "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+              null,
+              null,
+              {
+                "minZoom": 0,
+                "maxZoom": 18,
+                "tileSize": 256,
+                "subdomains": "abc",
+                "errorTileUrl": "",
+                "tms": false,
+                "noWrap": false,
+                "zoomOffset": 0,
+                "zoomReverse": false,
+                "opacity": 1,
+                "zIndex": 1,
+                "detectRetina": false
+              }
+            ]
+          },
+          {
+            "method": "addRectangles",
+            "args": [
+              31.7680065,
+              64.2385139,
+              35.7680065,
+              68.2385139,
+              null,
+              null,
+              {
+                "interactive": true,
+                "className": "",
+                "stroke": true,
+                "color": "black",
+                "weight": 3,
+                "opacity": 0.5,
+                "fill": true,
+                "fillColor": "black",
+                "fillOpacity": 0,
+                "smoothFactor": 1,
+                "noClip": false
+              },
+              null,
+              null,
+              null,
+              {
+                "interactive": false,
+                "permanent": false,
+                "direction": "auto",
+                "opacity": 1,
+                "offset": [
+                  0,
+                  0
+                ],
+                "textsize": "10px",
+                "textOnly": false,
+                "className": "",
+                "sticky": true
+              },
+              null
+            ]
+          },
+          {
+            "method": "addCircleMarkers",
+            "args": [
+              [
+                33.7680065,
+                40.7696272,
+                40.3936294,
+                26.1551249,
+                24.4769288,
+                12.5433216,
+                35.000074,
+                34.9823018,
+                32.3293809,
+                22.2793278,
+                22.3511148,
+                -2.4833826,
+                32.6475314,
+                33.0955793,
+                30.8124247,
+                36.5748441,
+                31.1667049,
+                48.1012954,
+                29.2733964,
+                33.8750629,
+                22.1899448,
+                4.5693754,
+                3.7203503,
+                46.8250388,
+                17.1750495,
+                28.1083929,
+                21.0000287,
+                30.3308401,
+                31.46242095,
+                12.7503486,
+                25.3336984,
+                25.6242618,
+                1.357107,
+                36.638392,
+                7.87739585,
+                34.6401861,
+                23.9739374,
+                14.8971921,
+                38.9597594,
+                24.0002488,
+                41.32373,
+                15.9266657,
+                16.3471243
+              ],
+              [
+                66.2385139,
+                44.6736646,
+                47.7872508,
+                50.5344606,
+                90.2934413,
+                104.8144914,
+                104.999927,
+                33.1451285,
+                -83.1137366,
+                114.1628131,
+                78.6677428,
+                117.8902853,
+                54.5643516,
+                44.1749775,
+                34.8594762,
+                139.2394179,
+                36.941628,
+                66.7780818,
+                47.4979476,
+                35.843409,
+                113.5380454,
+                102.2656823,
+                73.2244152,
+                103.8499736,
+                95.9999652,
+                84.0917139,
+                57.0036901,
+                71.247499,
+                34.2627165721307,
+                122.7312101,
+                51.2295295,
+                42.3528328,
+                103.8194992,
+                127.6961188,
+                80.6624785235589,
+                39.0494106,
+                120.9820179,
+                100.83273,
+                34.9249653,
+                53.9994829,
+                63.9528098,
+                107.9650855,
+                47.8915271
+              ],
+              5,
+              [
+                "Afghanistan",
+                "Armenia",
+                "Azerbaijan",
+                "Bahrain",
+                "Bangladesh",
+                "Cambodia",
+                "China",
+                "Cyprus",
+                "Georgia",
+                "Hong Kong",
+                "India",
+                "Indonesia",
+                "Iran",
+                "Iraq",
+                "Israel",
+                "Japan",
+                "Jordan",
+                "Kazakhstan",
+                "Kuwait",
+                "Lebanon",
+                "Macao",
+                "Malaysia",
+                "Maldives",
+                "Mongolia",
+                "Myanmar",
+                "Nepal",
+                "Oman",
+                "Pakistan",
+                "Palestine",
+                "Philippines",
+                "Qatar",
+                "Saudi Arabia",
+                "Singapore",
+                "South Korea",
+                "Sri Lanka",
+                "Syria",
+                "Taiwan",
+                "Thailand",
+                "Turkey",
+                "United Arab Emirates",
+                "Uzbekistan",
+                "Vietnam",
+                "Yemen"
+              ],
+              null,
+              {
+                "interactive": true,
+                "className": "",
+                "stroke": false,
+                "color": [
+                  "#0000FF",
+                  "#470EF8",
+                  "#2307FB",
+                  "#FFE400",
+                  "#470EF8",
+                  "#8F1CF1",
+                  "#6B15F4",
+                  "#FFE400",
+                  "#2307FB",
+                  "#FF3900",
+                  "#0000FF",
+                  "#470EF8",
+                  "#470EF8",
+                  "#470EF8",
+                  "#FF0000",
+                  "#FF3900",
+                  "#8F1CF1",
+                  "#2307FB",
+                  "#8F1CF1",
+                  "#FF7200",
+                  "#FFAB00",
+                  "#470EF8",
+                  "#FFE400",
+                  "#470EF8",
+                  "#470EF8",
+                  "#2307FB",
+                  "#8F1CF1",
+                  "#0000FF",
+                  "#FFE400",
+                  "#470EF8",
+                  "#FFAB00",
+                  "#8F1CF1",
+                  "#FF0000",
+                  "#FF7200",
+                  "#2307FB",
+                  "#2307FB",
+                  "#FFAB00",
+                  "#6B15F4",
+                  "#2307FB",
+                  "#FFE400",
+                  "#2307FB",
+                  "#470EF8",
+                  "#8F1CF1"
+                ],
+                "weight": 5,
+                "opacity": 0.5,
+                "fill": true,
+                "fillColor": [
+                  "#0000FF",
+                  "#470EF8",
+                  "#2307FB",
+                  "#FFE400",
+                  "#470EF8",
+                  "#8F1CF1",
+                  "#6B15F4",
+                  "#FFE400",
+                  "#2307FB",
+                  "#FF3900",
+                  "#0000FF",
+                  "#470EF8",
+                  "#470EF8",
+                  "#470EF8",
+                  "#FF0000",
+                  "#FF3900",
+                  "#8F1CF1",
+                  "#2307FB",
+                  "#8F1CF1",
+                  "#FF7200",
+                  "#FFAB00",
+                  "#470EF8",
+                  "#FFE400",
+                  "#470EF8",
+                  "#470EF8",
+                  "#2307FB",
+                  "#8F1CF1",
+                  "#0000FF",
+                  "#FFE400",
+                  "#470EF8",
+                  "#FFAB00",
+                  "#8F1CF1",
+                  "#FF0000",
+                  "#FF7200",
+                  "#2307FB",
+                  "#2307FB",
+                  "#FFAB00",
+                  "#6B15F4",
+                  "#2307FB",
+                  "#FFE400",
+                  "#2307FB",
+                  "#470EF8",
+                  "#8F1CF1"
+                ],
+                "fillOpacity": 0.7
+              },
+              null,
+              null,
+              null,
+              null,
+              [
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Afghanistan<\/p><p><b> Cost of Living Index <\/b>: 20.37<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Armenia<\/p><p><b> Cost of Living Index <\/b>: 33.89<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Azerbaijan<\/p><p><b> Cost of Living Index <\/b>: 29.73<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Bahrain<\/p><p><b> Cost of Living Index <\/b>: 54.77<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Bangladesh<\/p><p><b> Cost of Living Index <\/b>: 33.13<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Cambodia<\/p><p><b> Cost of Living Index <\/b>: 49.11<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: China<\/p><p><b> Cost of Living Index <\/b>: 41.77<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Cyprus<\/p><p><b> Cost of Living Index <\/b>: 59.03<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Georgia<\/p><p><b> Cost of Living Index <\/b>: 30.18<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Hong Kong<\/p><p><b> Cost of Living Index <\/b>: 80.71<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: India<\/p><p><b> Cost of Living Index <\/b>: 24.43<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Indonesia<\/p><p><b> Cost of Living Index <\/b>: 35.85<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Iran<\/p><p><b> Cost of Living Index <\/b>: 37.39<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Iraq<\/p><p><b> Cost of Living Index <\/b>: 34.47<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Israel<\/p><p><b> Cost of Living Index <\/b>: 88.05<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Japan<\/p><p><b> Cost of Living Index <\/b>: 77.03<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Jordan<\/p><p><b> Cost of Living Index <\/b>: 49.19<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Kazakhstan<\/p><p><b> Cost of Living Index <\/b>: 28.68<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Kuwait<\/p><p><b> Cost of Living Index <\/b>: 48.68<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Lebanon<\/p><p><b> Cost of Living Index <\/b>: 69.62<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Macao<\/p><p><b> Cost of Living Index <\/b>: 66.81<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Malaysia<\/p><p><b> Cost of Living Index <\/b>: 37.02<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Maldives<\/p><p><b> Cost of Living Index <\/b>: 57.66<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Mongolia<\/p><p><b> Cost of Living Index <\/b>: 34.74<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Myanmar<\/p><p><b> Cost of Living Index <\/b>: 35.67<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Nepal<\/p><p><b> Cost of Living Index <\/b>: 28.29<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Oman<\/p><p><b> Cost of Living Index <\/b>: 49.42<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Pakistan<\/p><p><b> Cost of Living Index <\/b>: 19.92<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Palestine<\/p><p><b> Cost of Living Index <\/b>: 58.11<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Philippines<\/p><p><b> Cost of Living Index <\/b>: 37.06<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Qatar<\/p><p><b> Cost of Living Index <\/b>: 62.81<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Saudi Arabia<\/p><p><b> Cost of Living Index <\/b>: 50.41<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Singapore<\/p><p><b> Cost of Living Index <\/b>: 83.98<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: South Korea<\/p><p><b> Cost of Living Index <\/b>: 73.22<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Sri Lanka<\/p><p><b> Cost of Living Index <\/b>: 31.29<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Syria<\/p><p><b> Cost of Living Index <\/b>: 28.75<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Taiwan<\/p><p><b> Cost of Living Index <\/b>: 62.35<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Thailand<\/p><p><b> Cost of Living Index <\/b>: 43.21<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Turkey<\/p><p><b> Cost of Living Index <\/b>: 28.31<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: United Arab Emirates<\/p><p><b> Cost of Living Index <\/b>: 58.33<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Uzbekistan<\/p><p><b> Cost of Living Index <\/b>: 27.31<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Vietnam<\/p><p><b> Cost of Living Index <\/b>: 37.48<\/p>",
+                "<p><b> Continent <\/b>: Asia<\/p><p><b> Country <\/b>: Yemen<\/p><p><b> Cost of Living Index <\/b>: 53.14<\/p>"
+              ],
+              {
+                "interactive": false,
+                "permanent": false,
+                "direction": "auto",
+                "opacity": 1,
+                "offset": [
+                  0,
+                  0
+                ],
+                "textsize": "10px",
+                "textOnly": false,
+                "className": "",
+                "sticky": true
+              },
+              null
+            ]
+          },
+          {
+            "method": "addLegend",
+            "args": [
+              {
+                "colors": [
+                  "#0000FF",
+                  "#2307FB",
+                  "#470EF8",
+                  "#6B15F4",
+                  "#8F1CF1",
+                  "#FFE400",
+                  "#FFAB00",
+                  "#FF7200",
+                  "#FF3900",
+                  "#FF0000"
+                ],
+                "labels": [
+                  "19 &ndash; 26",
+                  "26 &ndash; 33",
+                  "33 &ndash; 40",
+                  "40 &ndash; 47",
+                  "47 &ndash; 54",
+                  "54 &ndash; 61",
+                  "61 &ndash; 68",
+                  "68 &ndash; 75",
+                  "75 &ndash; 82",
+                  "82 &ndash; 89"
+                ],
+                "na_color": null,
+                "na_label": "NA",
+                "opacity": 0.7,
+                "position": "topright",
+                "type": "bin",
+                "title": "Cost of Living Index",
+                "extra": null,
+                "layerId": null,
+                "className": "info legend",
+                "group": null
+              }
+            ]
+          }
+        ],
+        "limits": {
+          "lat": [
+            -2.4833826,
+            48.1012954
+          ],
+          "lng": [
+            -83.1137366,
+            139.2394179
+          ]
+        },
+        "setView": [
+          [
+            33.7680065,
+            66.2385139
+          ],
+          4,
+          [
+
+          ]
+        ]
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+
+      ]
+    }
+  },
+  "export": {
+
+  }
+}

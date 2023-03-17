@@ -27,7 +27,7 @@
       "lat": 33.7680065
     },
     "map1_zoom": 4,
-    "plotly_afterplot-A": "\"scatterplot\"",
+    "plotly_afterplot-A": "\"distplot1\"",
     "sidebarCollapsed": false,
     "sidebarItemExpanded": null,
     "tabset1": "Distribution Plot & Scatter Plot",
