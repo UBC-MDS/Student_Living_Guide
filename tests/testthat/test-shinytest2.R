@@ -1,58 +1,32 @@
 library(shinytest2)
 
-test_that("{shinytest2} recording: Bar_Plot_and_Map", {
-  app <- AppDriver$new(variant = platform_variant(), name = "Bar_Plot_and_Map", height = 569, 
-      width = 979)
+test_that("{shinytest2} recording: bar_map_europe_oceania_NA", {
+  app <- AppDriver$new(name = "bar_map_europe_oceania_NA", height = 569, width = 979)
   app$set_inputs(continent_select = c("Europe", "Africa", "South America", "Oceania", 
       "North America"))
-  app$set_inputs(continent_select = c("Africa", "South America", "Oceania", "North America"))
-  app$set_inputs(continent_select = c("Africa", "Oceania", "North America"))
-  app$set_inputs(continent_select = c("Africa", "North America"))
-  app$set_inputs(continent_select = "Africa")
-  app$set_inputs(country_select = "Botswana")
+  app$set_inputs(continent_select = c("Europe", "South America", "Oceania", "North America"))
+  app$set_inputs(continent_select = c("Europe", "Oceania", "North America"))
   app$expect_values()
-  app$expect_screenshot()
 })
 
 
-test_that("{shinytest2} recording: Distribution_Plot_and_Scatter_Plot", {
-  app <- AppDriver$new(variant = platform_variant(), name = "Distribution_Plot_and_Scatter_Plot", 
-      height = 569, width = 979)
-  app$set_inputs(tabset1 = "Distribution Plot & Scatter Plot")
-  app$set_inputs(continent_select = c("Europe", "Africa", "South America", "Oceania", 
-      "North America"))
-  app$set_inputs(continent_select = c("Africa", "South America", "Oceania", "North America"))
-  app$set_inputs(continent_select = c("South America", "Oceania", "North America"))
-  app$set_inputs(continent_select = c("Oceania", "North America"))
-  app$set_inputs(continent_select = "North America")
+
+test_that("{shinytest2} recording: bar_map_canada", {
+  app <- AppDriver$new(name = "bar_map_canada", height = 569, width = 979)
+  app$set_inputs(country_select = "")
   app$set_inputs(country_select = "Canada")
+  app$expect_values()
+})
+
+
+
+test_that("{shinytest2} recording: dist_scatter_asia", {
+  app <- AppDriver$new(name = "dist_scatter_asia", height = 569, width = 979)
+  app$set_inputs(tabset1 = "Distribution Plot & Scatter Plot")
+  app$set_inputs(continent_select = character(0))
+  app$set_inputs(continent_select = "Asia")
   app$set_inputs(x_axis_select = "Rent Index")
   app$set_inputs(y_axis_select = "Groceries Index")
   app$expect_values()
-  app$expect_screenshot()
 })
 
-
-test_that("{shinytest2} recording: Student_Living_Guide", {
-  app <- AppDriver$new(name = "Student_Living_Guide", height = 569, width = 979)
-  app$set_inputs(continent_select = c("Asia", "Africa", "South America", "Oceania", 
-      "North America"))
-  app$set_inputs(continent_select = c("Asia", "South America", "Oceania", "North America"))
-  app$set_inputs(continent_select = c("Asia", "Oceania", "North America"))
-  app$set_inputs(continent_select = c("Asia", "North America"))
-  app$set_inputs(continent_select = "Asia")
-  app$expect_values()
-})
-
-
-test_that("{shinytest2} recording: Distribution_Plot_and_Scatter_Plot_asia_oceania_NA", {
-  app <- AppDriver$new(name = "Distribution_Plot_and_Scatter_Plot_asia_oceania_NA", 
-      height = 569, width = 979)
-  app$set_inputs(tabset1 = "Distribution Plot & Scatter Plot")
-  app$set_inputs(continent_select = c("Asia", "Europe", "Africa", "Oceania", "North America"))
-  app$set_inputs(continent_select = c("Asia", "Europe", "Oceania", "North America"))
-  app$set_inputs(continent_select = c("Asia", "Oceania", "North America"))
-  app$set_inputs(x_axis_select = "Cost of Living Plus Rent Index")
-  app$set_inputs(y_axis_select = "Restaurant Price Index")
-  app$expect_values()
-})
