@@ -108,7 +108,7 @@ ui <- dashboardPage(
                          fluidPage(
                            fluidRow(
                              # map plot
-                             leafletOutput("map1", height = "650px"),
+                             withSpinner(leafletOutput("map1", height = "650px"), type=3, color.background = "white"),
                            )
 
                          )
