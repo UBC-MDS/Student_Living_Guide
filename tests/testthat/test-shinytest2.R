@@ -1,16 +1,17 @@
 library(shinytest2)
 
+#testing barplot2
 test_that("{shinytest2} recording: dist_scatter_asia_armenia", {
   app <- AppDriver$new(name = "dist_scatter_asia_armenia", height = 569, width = 979)
-  app$set_inputs(tabset1 = "Distribution Plot & Scatter Plot")
+  app$set_inputs(tabset1 = "Bar Plot & Map")
   app$set_inputs(continent_select = character(0))
   app$set_inputs(continent_select = "Asia")
   app$set_inputs(country_select = "Armenia")
-  app$expect_values(output = "distplot1")
+  app$expect_values(output = "barPlot2")
 })
 
 
-
+#testing barplot1
 test_that("{shinytest2} recording: dist_scatter_europe_austria", {
   app <- AppDriver$new(name = "dist_scatter_europe_austria", height = 569, width = 979)
   app$set_inputs(tabset1 = "Bar Plot & Map")
@@ -23,7 +24,7 @@ test_that("{shinytest2} recording: dist_scatter_europe_austria", {
 })
 
 
-
+#testing scatterplot
 test_that("{shinytest2} recording: dist_scatter_NA", {
   app <- AppDriver$new(name = "dist_scatter_NA", height = 569, width = 979)
   app$set_inputs(tabset1 = "Distribution Plot & Scatter Plot")
