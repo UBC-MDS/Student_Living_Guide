@@ -1,5 +1,7 @@
 # Student Living Guide
 
+[![shiny-deploy](https://github.com/UBC-MDS/Student_Living_Guide/actions/workflows/deploy-app.yaml/badge.svg)](https://github.com/UBC-MDS/Student_Living_Guide/actions/workflows/deploy-app.yaml)[![Test app w/ {renv}](https://github.com/UBC-MDS/Student_Living_Guide/actions/workflows/testing.yaml/badge.svg)](https://github.com/UBC-MDS/Student_Living_Guide/actions/workflows/testing.yaml)
+
 The [Student Living Guide](https://caesarwong.shinyapps.io/Student_Living_Guide_Shiny/) app is created to help students studying in New York who are looking to explore new countries to travel to during their vacations or to move to after graduating. We have information about the cost of living in different countries in the form of different indexes which we will make available in our app in a very user-friendly and understandable format through a dashboard!
 
 This app consists of a basic filter that filters the entire dashboard for specific countries or continents. But the highlight of this dashboard would be its ability to compare the different indexes across multiple countries and continents.
