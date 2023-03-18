@@ -4,28 +4,44 @@ The [Student Living Guide](https://caesarwong.shinyapps.io/Student_Living_Guide_
 
 This app consists of a basic filter that filters the entire dashboard for specific countries or continents. But the highlight of this dashboard would be its ability to compare the different indexes across multiple countries and continents.
 
-We plan on having four graphs that will summarize the entire dataset and help analyze the students in order to make their next move. It will not only be comprehensive but also be made simple so that anyone can understand and make use of it.
+We have four graphs that will summarize the entire dataset and help analyze the students in order to make their next move. It will not only be comprehensive but also be made simple so that anyone can understand and make use of it.
 
-The first graph is a bar chart in the top left corner (beside the filters) depicting the 10 with the highest and lowest Cost of Living index. The two charts - highest and lowest Cost of Living are placed one on top of the other. The second graph is a map that will be on the top right corner capturing the Cost of Living Index of each country on the world map. The magnitude of the value is shown by the size of the circle. The third graph comes directly below it and will tell us if there is a direct correlation between some of the features for eg. there seems to be a high dependence of the restaurant index with the cost of living index. The fourth graph is a probability distribution plot of the cost of living index of all the countries.
 
 #
 The following table of contents provides a overview of the Student Living Guide app and its different sections, you can use the links below to easily navigate to the section of interest.
 
 - [Introduction](#student-living-guide)
-- [Dashboard Demo](#dashboard-demo)
+- [Dashboard Demo](#how-to-use-this-dashboard)
 - [Reproducing the processed data](#usage)
 - [Required Python packages for data preprocessing](#requirements)
 - [Developing the app locally](#developing-the-app-locally)
 - [Contributions](#contributions)
 - [License](#license)
 
-# Dashboard Sketch
 
-![](img/sketch.png)
+# How to use this dashboard
 
-# Dashboard Demo
+![](img/tab1.gif)
 
-![](img/ezgif.com-video-to-gif.gif)
+When you open the dashboard, you will be directed to the default Bar plot & Map tab, which will show three graphs:
+
+- The first graph is a bar chart located in the top left, beside the filters. This bar chart depicts the 10 countries with the highest and lowest Cost of Living index.
+- A second bar chart located directly below the first one, which also depicts the 10 countries with the highest and lowest Cost of Living index.
+- A map located on the right side of the app, which captures the Cost of Living Index of each country on the world map. The magnitude of the index is indicated by the color of the circle. You can hover over each data point map to see more information about a specific country and also drag around to click on another country of interest.
+
+In addition to using the map, you can also use the country selector locates in the side panel.
+
+![](img/tab2.gif)
+
+To access the second tab, click on the "Distribution Plot & Scatter Plot" located at the top of the dashboard. The second tab contains two graphs.
+
+- The graph on the left is a scatter plot that shows the correlation between selected indices and the selector for those indices are located in the side panel.
+- The graph on the right is a probability distribution plot of the Cost of Living index of all the countries.
+
+Using the continent selector will update both the scatter plot and the distribution plot. When a country is selected, the distribution plot will show the cost of living index for that country as a red dashed line. It  will also show the distribution of cost of living indices for all countries in the selected continent, and the mean cost of living index for the selected continents as a solid black line.
+
+The dashboard is designed to be responsive, so you can resize the window or view it on different devices without losing any functionality.
+
 
 # Usage
 
